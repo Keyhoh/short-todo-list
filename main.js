@@ -17,9 +17,6 @@ function createWindow () {
   // そしてこのアプリの index.html をロード
   win.loadFile('index.html')
 
-  // 開発者ツールを開く
-  win.webContents.openDevTools()
-
   // ウィンドウが閉じられた時に発火
   win.on('closed', () => {
     // ウインドウオブジェクトの参照を外す。
