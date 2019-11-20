@@ -1,0 +1,24 @@
+@startuml
+title todo list
+
+class Todo{
+    title
+    deadline
+    priority
+    steps
+    --
+    isCompleted()
+    isDeleted()
+}
+
+class Step{
+    overview
+    details
+    order
+    --
+    isCompeleted()
+}
+
+Todo "1" *-- "1..n" Step
+
+@enduml

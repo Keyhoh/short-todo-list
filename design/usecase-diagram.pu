@@ -1,0 +1,41 @@
+@startuml
+title todo list
+
+actor user 
+
+left to right direction
+
+package "list" {
+    user --> (todoのソート順を変更する)
+}
+
+package "todo" {
+    usecase (todoを追加する) as addTodo
+    usecase (todoを編集する) as editTodo
+    user --> addTodo
+    addTodo --> editTodo
+    user --> editTodo
+    user --> (編集したtodoを保存する)
+    user --> (todoを破棄する)
+    user --> (完了したtodoをまとめて破棄する)
+    user --> (破棄したtodoを戻す)
+    user --> (破棄したtodoを削除する)
+    user --> (破棄したtodoをまとめて削除する)
+    usecase (todoを完了する) as completeTodo
+}
+
+package "step"{
+
+    usecase (todoにstepを追加する) as addStep
+    usecase (todoのstepを編集する) as editStep
+    user --> addStep
+    addStep -> editStep
+    user --> editStep
+    user --> (編集したstepを保存する)
+    usecase (todoのstepを完了する) as completeStep
+    user --> completeStep
+    completeStep --> completeTodo: "todoのstepが全て完了"
+    user --> (todoのstepを削除する)
+}
+
+@enduml
