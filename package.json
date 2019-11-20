@@ -2,9 +2,9 @@
   "name": "short-todo-list",
   "version": "1.0.0",
   "description": "Todo list that can be operated with shortcut keys.",
-  "main": "main.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron src",
     "build": "electron-builder",
     "test": "mocha"
   },
