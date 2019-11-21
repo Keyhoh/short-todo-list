@@ -7,9 +7,9 @@ export default class Todo{
     _priority;
     _details;
 
-    constructor(title = 'title', priority = Priority.NORMAL, details = ''){
+    constructor(title = 'title', priority = 1, details = ''){
         this._title = new Title(title);
-        this._priority = priority;
+        this._priority = Priority.of(priority);
         this._details = new Details(details);
     }
 
@@ -18,7 +18,7 @@ export default class Todo{
     }
 
     get priority(){
-        return this._priority;
+        return this._priority.value;
     }
 
     get details(){
