@@ -21,8 +21,6 @@ describe('Create todo operation test', function () {
         it('is too long title', () => {
             assert.doesNotThrow(() => Operation.create('01234567'.repeat(8)));
             assert.throws(() => Operation.create('01234567'.repeat(8) + 'a'));
-            assert.doesNotThrow(() => Operation.create('０１２３４５６７'.repeat(8)));
-            assert.throws(() => Operation.create('０１２３４５６７'.repeat(8) + 'あ'));
         });
     });
 
@@ -35,6 +33,11 @@ describe('Create todo operation test', function () {
             assert.equal(Operation.create(undefined, 0).priority, Priority.LOW);
             assert.equal(Operation.create(undefined, 1).priority, Priority.NORMAL);
             assert.equal(Operation.create(undefined, 2).priority, Priority.HIGH);
+        });
+
+        it('is unknown priority', () => {
+            assert.throws(() => Operation.create(undefined, null));
+            assert.throws(() => Operation.create(undefined, -1));
         });
     });
 });
