@@ -1,5 +1,5 @@
 import assert from 'assert';
-import Operation from "../src/model/Todo/Operation";
+import Operation from "../../src/model/Operation";
 
 describe('Create todo operation test', function () {
     describe('Todo title test', function () {
