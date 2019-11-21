@@ -1,5 +1,6 @@
 import assert from 'assert';
 import Operation from "../src/model/Todo/Operation";
+import Priority from '../src/model/Todo/Priority';
 
 describe('Create todo operation test', function () {
     describe('Todo title test', function () {
@@ -27,7 +28,7 @@ describe('Create todo operation test', function () {
     
     describe('Todo priority test', function() {
         it('is default priority', () =>{
-            assert.equal(Operation.create().priority, 0);
+            assert.equal(Operation.create().priority, Priority.NORMAL);
         });
     })
 });
