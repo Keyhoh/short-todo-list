@@ -19,6 +19,10 @@ export default class Todo {
         return this._title.value;
     }
 
+    set title(title){
+        this._title = new Title(title);
+    }
+
     get priority() {
         return this._priority.value;
     }
