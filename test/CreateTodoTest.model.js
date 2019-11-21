@@ -40,4 +40,18 @@ describe('Create todo operation test', function () {
             assert.throws(() => Operation.create(undefined, -1));
         });
     });
+
+    describe('Todo details test', function () {
+        it('is default details', () => {
+            assert.equal(Operation.create().details, '');
+        });
+
+        it('is able to set details', () => {
+            assert.equal(Operation.create(undefined, undefined, 'todo details').details, 'todo details');
+        });
+
+        it('is empty string if passing null', () => {
+            assert.equal(Operation.create(undefined, undefined, null).details, '');
+        });
+    });
 });
