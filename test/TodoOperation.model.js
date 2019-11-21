@@ -32,9 +32,9 @@ describe('Create todo operation test', function () {
         });
 
         it('is able to set priority', () => {
-            assert.equal(Operation.create(undefined, Priority.LOW).priority, Priority.LOW);
-            assert.equal(Operation.create(undefined, Priority.NORMAL).priority, Priority.NORMAL);
-            assert.equal(Operation.create(undefined, Priority.HIGH).priority, Priority.HIGH);
+            assert.equal(Operation.create(undefined, 0).priority, Priority.LOW);
+            assert.equal(Operation.create(undefined, 1).priority, Priority.NORMAL);
+            assert.equal(Operation.create(undefined, 2).priority, Priority.HIGH);
         });
     });
 });
