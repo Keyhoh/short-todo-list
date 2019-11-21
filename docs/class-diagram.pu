@@ -4,20 +4,9 @@ title todo list
 class Todo{
     title
     priority
-    steps
-    --
-    isCompleted()
-    isDeleted()
-}
-
-class Step{
-    overview
     details
-    order
-    --
-    isCompeleted()
+    compeleted
+    discarded
 }
-
-Todo "1" *-- "1..n" Step
 
 @enduml
