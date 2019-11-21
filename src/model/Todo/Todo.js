@@ -1,5 +1,5 @@
-import Title from './Title';
-import Priority from './Priority';
+import Title from "./Title";
+import Priority from "./Priority";
 
 export default class Todo{
     _title;

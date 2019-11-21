@@ -1,6 +1,6 @@
 import assert from 'assert';
 import Operation from "../src/model/Todo/Operation";
-import Priority from '../src/model/Todo/Priority';
+import Priority from "../src/model/Todo/Priority";
 
 describe('Create todo operation test', function () {
     describe('Todo title test', function () {
