@@ -3,7 +3,6 @@ title todo list
 
 class Todo{
     title
-    deadline
     priority
     steps
     --

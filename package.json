@@ -6,12 +6,19 @@
   "scripts": {
     "start": "electron src",
     "build": "electron-builder",
-    "test": "mocha"
+    "test:app": "mocha './test/**/*.app.js'",
+    "test:app:watch": "mocha './test/**/*.app.js' --watch",
+    "test:model": "mocha './test/**/*.model.js' --require @babel/register",
+    "test:model:watch": "mocha './test/**/*.model.js' --watch --require @babel/register"
   },
   "keywords": [],
   "author": "iheyhoh",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/register": "^7.7.0",
     "electron": "^7.1.1",
     "electron-builder": "^21.2.0",
     "mocha": "^6.2.2",
