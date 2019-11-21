@@ -11,7 +11,8 @@ describe('Todo operation test', function () {
         assert.equal(Operation.create('new title').title, 'new title');
     });
 
-    it('occurs error by null title', () => {
+    it('occurs error by empty title', ()=>{
+        assert.throws(() => Operation.create(''));
         assert.throws(() => Operation.create(null));
     });
 });

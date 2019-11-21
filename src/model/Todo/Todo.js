@@ -3,7 +3,7 @@ import _ from 'lodash';
 export default class Todo{
     _title;
     constructor(title = 'title'){
-        if(_.isNil(title)) throw 'Title cannot be null';
+        if(_.isEmpty(title)) throw 'Title cannot be empty';
         this._title = title ;
     }
 
