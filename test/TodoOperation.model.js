@@ -25,10 +25,16 @@ describe('Create todo operation test', function () {
             assert.throws(() => Operation.create('０１２３４５６７'.repeat(8) + 'あ'));
         });
     });
-    
-    describe('Todo priority test', function() {
-        it('is default priority', () =>{
+
+    describe('Todo priority test', function () {
+        it('is default priority', () => {
             assert.equal(Operation.create().priority, Priority.NORMAL);
         });
-    })
+
+        it('is able to set priority', () => {
+            assert.equal(Operation.create(undefined, Priority.LOW).priority, Priority.LOW);
+            assert.equal(Operation.create(undefined, Priority.NORMAL).priority, Priority.NORMAL);
+            assert.equal(Operation.create(undefined, Priority.HIGH).priority, Priority.HIGH);
+        });
+    });
 });
