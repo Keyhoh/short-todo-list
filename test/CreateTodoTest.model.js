@@ -53,4 +53,14 @@ describe('Create todo operation test', function () {
             assert.equal(Operation.create(undefined, undefined, null).details, '');
         });
     });
+
+    describe('Todo default status test', () => {
+        it('is not discarded', () => {
+            assert.equal(Operation.create().discarded, false);
+        });
+
+        it('is not completed', () => {
+            assert.equal(Operation.create().completed, false);
+        });
+    });
 });

@@ -8,7 +8,7 @@ export default class Details {
         this._value = details;
     }
 
-    get value(){
+    get value() {
         return this._value;
     }
 }
