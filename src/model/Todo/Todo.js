@@ -1,14 +1,12 @@
-import _ from 'lodash';
+import Title from './Title';
 
 export default class Todo{
     _title;
     constructor(title = 'title'){
-        if(_.isEmpty(title)) throw 'Title cannot be empty';
-        if(title.length > 64) throw 'Title is too long';
-        this._title = title ;
+        this._title = new Title(title);
     }
 
     get title(){
-        return this._title;
+        return this._title.value;
     }
 }

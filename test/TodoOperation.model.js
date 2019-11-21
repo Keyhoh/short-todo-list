@@ -1,6 +1,5 @@
 import assert from 'assert';
 import Operation from "../src/model/Todo/Operation";
-import { isSafeGithubName } from 'app-builder-lib/out/platformPackager';
 
 describe('Todo operation test', function () {
     it('is default title', () => {
