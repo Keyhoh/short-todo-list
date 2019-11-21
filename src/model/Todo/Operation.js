@@ -1,6 +1,6 @@
 import Todo from "./Todo";
 export default class Operation{
-    static create(title){
-        return new Todo(title);
+    static create(title, priority){
+        return new Todo(title, priority);
     }
 }
