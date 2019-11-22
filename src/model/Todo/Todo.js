@@ -7,7 +7,7 @@ export default class Todo {
     _priority;
     _details;
     _discarded = false;
-    _completed = false;
+    _checked = false;
 
     constructor(title = 'title', priority = 1, details = '') {
         this._title = new Title(title);
@@ -39,12 +39,12 @@ export default class Todo {
         return this._details.value;
     }
 
-    get completed() {
-        return this._completed;
+    get checked() {
+        return this._checked;
     }
 
-    complete() {
-        this._completed = true;
+    check() {
+        this._checked = true;
     }
 
     get discarded() {

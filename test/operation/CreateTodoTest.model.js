@@ -59,8 +59,8 @@ describe('Create todo operation test', function () {
             assert.equal(Operation.create().discarded, false);
         });
 
-        it('is not completed', () => {
-            assert.equal(Operation.create().completed, false);
+        it('is not checked', () => {
+            assert.equal(Operation.create().checked, false);
         });
     });
 });

@@ -53,9 +53,9 @@ describe('Update todo operation test', function () {
     });
 
     describe('Update status test', function () {
-        it('completes todo', () => {
-            Operation.complete(todo);
-            assert.equal(todo.completed, true);
+        it('checks todo', () => {
+            Operation.check(todo);
+            assert.equal(todo.checked, true);
         });
 
         it('discards todo', () => {
