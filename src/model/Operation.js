@@ -10,11 +10,19 @@ export default class Operation {
         return todo;
     }
 
-    static upPriority(todo){
+    static upPriority(todo) {
         todo.up();
     }
 
-    static downPriority(todo){
+    static downPriority(todo) {
         todo.down();
+    }
+
+    static complete(todo) {
+        todo.complete();
+    }
+
+    static discard(todo) {
+        todo.discard();
     }
 }

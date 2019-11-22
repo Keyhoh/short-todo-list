@@ -51,4 +51,16 @@ describe('Update todo operation test', function () {
             });
         });
     });
+
+    describe('Update status test', function () {
+        it('completes todo', () => {
+            Operation.complete(todo);
+            assert.equal(todo.completed, true);
+        });
+
+        it('discards todo', () => {
+            Operation.discard(todo);
+            assert.equal(todo.discarded, true);
+        });
+    });
 });

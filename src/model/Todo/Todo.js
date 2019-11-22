@@ -39,11 +39,19 @@ export default class Todo {
         return this._details.value;
     }
 
+    get completed() {
+        return this._completed;
+    }
+
+    complete(){
+        this._completed = true;
+    }
+
     get discarded() {
         return this._discarded;
     }
 
-    get completed() {
-        return this._completed;
+    discard(){
+        this._discarded = true;
     }
 }
