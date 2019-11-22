@@ -6,7 +6,7 @@ export default class Priority {
 
     constructor(p = 1) {
         this._level = Priority.LEVEL[p];
-        if(_.isUndefined(this._level)) throw 'Unknown priority';
+        if (_.isUndefined(this._level)) throw 'Unknown priority';
     }
     static of(p) {
         return new Priority(p);
@@ -18,13 +18,13 @@ export default class Priority {
 
     up() {
         const tmp = Priority.LEVEL[this.value + 1];
-        if(_.isUndefined(tmp)) return;
+        if (_.isUndefined(tmp)) return;
         this._level = tmp;
     }
 
     down() {
         const tmp = Priority.LEVEL[this.value - 1];
-        if(_.isUndefined(tmp)) return;
+        if (_.isUndefined(tmp)) return;
         this._level = tmp;
     }
 }

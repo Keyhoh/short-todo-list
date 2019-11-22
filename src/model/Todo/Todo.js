@@ -19,7 +19,7 @@ export default class Todo {
         return this._title.value;
     }
 
-    set title(title){
+    set title(title) {
         this._title = new Title(title);
     }
 
@@ -27,11 +27,11 @@ export default class Todo {
         return this._priority.value;
     }
 
-    up(){
+    up() {
         this._priority.up();
     }
 
-    down(){
+    down() {
         this._priority.down();
     }
 
@@ -43,7 +43,7 @@ export default class Todo {
         return this._completed;
     }
 
-    complete(){
+    complete() {
         this._completed = true;
     }
 
@@ -51,7 +51,7 @@ export default class Todo {
         return this._discarded;
     }
 
-    discard(){
+    discard() {
         this._discarded = true;
     }
 }
