@@ -1,44 +1,34 @@
 import _ from 'lodash';
 
-const Priority = {};
+export default class Priority {
+    _level;
+    static LEVEL = Object.freeze(['LOW', 'NORMAL', 'HIGHT']);
 
-Priority.LEVEL = {};
+    constructor(p = 1) {
+        this._level = Priority.LEVEL[p];
+        if(_.isUndefined(this._level)) throw 'Unknown priority';
+    }
+    static of(p) {
+        return new Priority(p);
+    }
 
-Priority.LEVEL.LOW = Object.freeze({ value: 0 });
-Priority.LEVEL.NORMAL = Object.freeze({ value: 1 });
-Priority.LEVEL.HIGH = Object.freeze({ value: 2 });
+    get value() {
+        return Priority.LEVEL.indexOf(this._level);
+    }
 
-Object.keys(Priority.LEVEL).forEach(level => {
-    Priority[level] = Priority.LEVEL[level];
-});
-
-Priority.of = p => {
-    const priority = Object.values(Priority.LEVEL)
-        .filter(level => level.value === p)[0];
-
-    if (_.isNil(priority)) throw 'Unknown priority';
-
-    return priority;
-};
-
-Priority.up = p => {
-    try {
+    static up(p) {
+        const tmp = Priority.LEVEL[p.value + 1];
+        if(_.isUndefined(tmp)){
+            return p;
+        }
         return Priority.of(p.value + 1);
-    } catch (error) {
-        if (error == 'Unknown priority') return p;
-        throw error;
     }
-}
 
-Priority.down = p => {
-    try {
+    static down(p) {
+        const tmp = Priority.LEVEL[p.value - 1];
+        if(_.isUndefined(tmp)){
+            return p;
+        }
         return Priority.of(p.value - 1);
-    } catch (error) {
-        if (error == 'Unknown priority') return p;
-        throw error;
     }
 }
-
-Object.freeze(Priority);
-
-export default Priority;
