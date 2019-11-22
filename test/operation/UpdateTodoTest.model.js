@@ -53,9 +53,12 @@ describe('Update todo operation test', function () {
     });
 
     describe('Update status test', function () {
-        it('checks todo', () => {
+        it('toggle todo checked', () => {
+            assert.equal(todo.checked, false);
             Operation.toggleCheck(todo);
             assert.equal(todo.checked, true);
+            Operation.toggleCheck(todo);
+            assert.equal(todo.checked, false);
         });
 
         it('discards todo', () => {
