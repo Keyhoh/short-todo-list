@@ -16,19 +16,15 @@ export default class Priority {
         return Priority.LEVEL.indexOf(this._level);
     }
 
-    static up(p) {
-        const tmp = Priority.LEVEL[p.value + 1];
-        if(_.isUndefined(tmp)){
-            return p;
-        }
-        return Priority.of(p.value + 1);
+    up() {
+        const tmp = Priority.LEVEL[this.value + 1];
+        if(_.isUndefined(tmp)) return;
+        this._level = tmp;
     }
 
-    static down(p) {
-        const tmp = Priority.LEVEL[p.value - 1];
-        if(_.isUndefined(tmp)){
-            return p;
-        }
-        return Priority.of(p.value - 1);
+    down() {
+        const tmp = Priority.LEVEL[this.value - 1];
+        if(_.isUndefined(tmp)) return;
+        this._level = tmp;
     }
 }

@@ -28,11 +28,11 @@ export default class Todo {
     }
 
     up(){
-        this._priority = Priority.up(this._priority);
+        this._priority.up();
     }
 
     down(){
-        this._priority = Priority.down(this._priority);
+        this._priority.down();
     }
 
     get details() {
