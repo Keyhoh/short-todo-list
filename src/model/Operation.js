@@ -13,4 +13,8 @@ export default class Operation {
     static upPriority(todo){
         todo.up();
     }
+
+    static downPriority(todo){
+        todo.down();
+    }
 }

@@ -31,6 +31,10 @@ export default class Todo {
         this._priority = Priority.up(this._priority);
     }
 
+    down(){
+        this._priority = Priority.down(this._priority);
+    }
+
     get details() {
         return this._details.value;
     }

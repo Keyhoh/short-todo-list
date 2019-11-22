@@ -43,5 +43,12 @@ describe('Update todo operation test', function () {
                 assert.equal(todo.priority, Math.min(p + 1, 2));
             });
         });
-    })
+
+        [...new Array(3).keys()].forEach(p => {
+            it(`down priority to ${1 - p}`, () => {
+                Operation.downPriority(todo);
+                assert.equal(todo.priority, Math.max(1 - p, 0));
+            });
+        });
+    });
 });

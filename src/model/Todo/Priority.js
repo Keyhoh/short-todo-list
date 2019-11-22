@@ -28,8 +28,17 @@ Priority.up = p => {
         if (error == 'Unknown priority') return p;
         throw error;
     }
-
 }
+
+Priority.down = p => {
+    try {
+        return Priority.of(p.value - 1);
+    } catch (error) {
+        if (error == 'Unknown priority') return p;
+        throw error;
+    }
+}
+
 Object.freeze(Priority);
 
 export default Priority;
