@@ -43,8 +43,8 @@ export default class Todo {
         return this._checked;
     }
 
-    check() {
-        this._checked = true;
+    toggleCheck() {
+        this._checked = !this._checked;
     }
 
     get discarded() {

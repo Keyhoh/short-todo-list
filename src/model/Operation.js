@@ -18,8 +18,8 @@ export default class Operation {
         todo.down();
     }
 
-    static check(todo) {
-        todo.check();
+    static toggleCheck(todo) {
+        todo.toggleCheck();
     }
 
     static discard(todo) {
