@@ -37,7 +37,7 @@ describe('Update todo operation test', function () {
     describe('Update priority test', function () {
         let todo = Operation.create(undefined, 0);
 
-       [...new Array(3).keys()]. forEach(p => {
+        [...new Array(3).keys()].forEach(p => {
             it(`up priority to ${p + 1}`, () => {
                 Operation.upPriority(todo);
                 assert.equal(todo.priority, Math.min(p + 1, 2));
