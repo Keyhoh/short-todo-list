@@ -27,6 +27,10 @@ export default class Todo {
         return this._priority.value;
     }
 
+    up(){
+        this._priority = Priority.up(this._priority);
+    }
+
     get details() {
         return this._details.value;
     }

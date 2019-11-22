@@ -9,4 +9,8 @@ export default class Operation {
         todo.title = title;
         return todo;
     }
+
+    static upPriority(todo){
+        todo.up();
+    }
 }
