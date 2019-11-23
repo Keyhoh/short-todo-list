@@ -38,4 +38,8 @@ export default class Operation {
     static find(id){
         return Store.find(id);
     }
+
+    static async delete(id){
+        await Store.delete(id);
+    }
 }

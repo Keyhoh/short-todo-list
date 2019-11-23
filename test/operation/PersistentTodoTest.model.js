@@ -3,10 +3,12 @@ import fs from 'fs-extra';
 import Operation from '../../src/model/Operation';
 
 global.App = global.App || {};
-global.App.dataDir = `${__dirname}/data`;
+global.App.dataDir = `${__dirname}/temp`;
 
 describe('Persistent todo test', function () {
     let todo;
+
+    this.beforeAll(() => fs.copySync(`${__dirname}/data`, global.App.dataDir));
 
     this.beforeEach(() => todo = Operation.create());
 
@@ -49,6 +51,16 @@ describe('Persistent todo test', function () {
             assert.throws(() => Operation.find(null));
             assert.throws(() => Operation.find(''));
             assert.throws(() => Operation.find('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'));
+        });
+    });
+
+    describe('Delete todo test', function () {
+        it('deletes todo', async () => {
+            const targetTodoId = "9d0f6c97-2280-4f14-bdfa-f475cec16f95";
+            const targetFileName = `${global.App.dataDir}/${targetTodoId}.json`;
+            assert.equal(fs.existsSync(targetFileName), true);
+            await Operation.delete(targetTodoId);
+            assert.equal(fs.existsSync(targetFileName), false);
         });
     });
 });

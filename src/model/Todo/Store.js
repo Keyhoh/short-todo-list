@@ -16,4 +16,12 @@ export default class Store {
                   throw 'Cannot find todo';
             }
       }
+
+      static async delete(id){
+            if(Store.find(id).discarded){
+                  await fs.remove(`${global.App.dataDir}/${id}.json`);
+            }else{
+                  throw 'Cannot delete todo';
+            }
+      }
 }
