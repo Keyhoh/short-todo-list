@@ -31,15 +31,16 @@ export default class Operation {
         todo.pullUp();
     }
 
-    static async save(todo){
+    static async save(todo) {
         await Store.save(todo);
     }
 
-    static find(id){
+    static find(id) {
+        if (_.isNil(id) || _.toLength(id)) throw 'Illegal id';
         return Store.find(id);
     }
 
-    static async delete(id){
+    static async delete(id) {
         await Store.delete(id);
     }
 }
