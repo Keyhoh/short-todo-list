@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Todo from "./Todo/Todo";
+import Store from "./Todo/Store";
 export default class Operation {
     static create(title, priority) {
         return new Todo(title, priority);
@@ -28,5 +29,9 @@ export default class Operation {
 
     static pullUp(todo) {
         todo.pullUp();
+    }
+
+    static async save(todo){
+        await Store.save(todo);
     }
 }

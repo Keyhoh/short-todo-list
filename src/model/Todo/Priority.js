@@ -8,6 +8,7 @@ export default class Priority {
         this._level = Priority.LEVEL[p];
         if (_.isUndefined(this._level)) throw 'Unknown priority';
     }
+
     static of(p) {
         return new Priority(p);
     }
