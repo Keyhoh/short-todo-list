@@ -29,4 +29,10 @@ describe('Persistent todo test', function () {
             fs.removeSync(savedFileName);
         });
     });
+
+    describe('Find todo test', function () {
+        it('finds todo', async () => {
+
+        });
+    });
 });
