@@ -4,7 +4,6 @@ title todo list
 class Todo{
     title
     priority
-    details
     compeleted
     discarded
 }
