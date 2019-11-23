@@ -54,4 +54,8 @@ export default class Todo {
     discard() {
         this._discarded = true;
     }
+
+    pullUp() {
+        this._discarded = false;
+    }
 }

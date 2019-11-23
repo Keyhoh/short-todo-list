@@ -25,4 +25,8 @@ export default class Operation {
     static discard(todo) {
         todo.discard();
     }
+
+    static pullUp(todo) {
+        todo.pullUp();
+    }
 }

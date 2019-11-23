@@ -54,7 +54,6 @@ describe('Update todo operation test', function () {
 
     describe('Update status test', function () {
         it('toggle todo checked', () => {
-            assert.equal(todo.checked, false);
             Operation.toggleCheck(todo);
             assert.equal(todo.checked, true);
             Operation.toggleCheck(todo);
@@ -64,6 +63,16 @@ describe('Update todo operation test', function () {
         it('discards todo', () => {
             Operation.discard(todo);
             assert.equal(todo.discarded, true);
+        });
+
+        it('pulls up discarded todo', () => {
+            assert.equal(todo.discarded, false);
+            Operation.pullUp(todo);
+            assert.equal(todo.discarded, false);
+            Operation.discard(todo);
+            assert.equal(todo.discarded, true);
+            Operation.pullUp(todo);
+            assert.equal(todo.discarded, false);
         });
     });
 });
