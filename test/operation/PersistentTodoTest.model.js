@@ -1,6 +1,6 @@
 import assert from 'assert';
 import fs from 'fs-extra';
-import Operation from '../../src/model/Operation';
+import Operation from "../../src/model/Operation";
 
 global.App = global.App || {};
 global.App.dataDir = `${__dirname}/temp`;
@@ -46,17 +46,26 @@ describe('Persistent todo test', function () {
             assert.equal(foundTodo.discarded, targetTodo.discarded);
         });
 
-        it('does not find todo', () => {
+        it('does not find todo by undefined', () => {
             assert.throws(() => Operation.find());
+        });
+
+        it('does not find todo by null', () => {
             assert.throws(() => Operation.find(null));
+        });
+
+        it('does not find todo by empty', () => {
             assert.throws(() => Operation.find(''));
+        });
+
+        it('does not find todo by illegal', () => {
             assert.throws(() => Operation.find('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'));
         });
     });
 
     describe('Delete todo test', function () {
         it('deletes todo', async () => {
-            const targetTodoId = "9d0f6c97-2280-4f14-bdfa-f475cec16f95";
+            const targetTodoId = '9d0f6c97-2280-4f14-bdfa-f475cec16f95';
             const targetFileName = `${global.App.dataDir}/${targetTodoId}.json`;
             assert.equal(fs.existsSync(targetFileName), true);
             await Operation.delete(targetTodoId);
@@ -64,11 +73,41 @@ describe('Persistent todo test', function () {
         });
 
         it('cannot delete todo', done => {
-            const targetTodoId = "f528cf2e-3488-4d1d-a3a2-022c01b3ebca";
+            const targetTodoId = 'f528cf2e-3488-4d1d-a3a2-022c01b3ebca';
             const targetFileName = `${global.App.dataDir}/${targetTodoId}.json`;
             assert.equal(fs.existsSync(targetFileName), true);
             Operation.delete(targetTodoId).catch(reason => {
                 assert.equal(reason, 'Cannot delete todo');
+                assert.equal(fs.existsSync(targetFileName), true);
+                done();
+            });
+        });
+
+        it('cannot delete todo by undefined', done => {
+            const targetFileName = `${global.App.dataDir}/f528cf2e-3488-4d1d-a3a2-022c01b3ebca.json`;
+            assert.equal(fs.existsSync(targetFileName), true);
+            Operation.delete().catch(reason => {
+                assert.equal(reason, 'Illegal id');
+                assert.equal(fs.existsSync(targetFileName), true);
+                done();
+            });
+        });
+
+        it('cannot delete todo by null', done => {
+            const targetFileName = `${global.App.dataDir}/f528cf2e-3488-4d1d-a3a2-022c01b3ebca.json`;
+            assert.equal(fs.existsSync(targetFileName), true);
+            Operation.delete(null).catch(reason => {
+                assert.equal(reason, 'Illegal id');
+                assert.equal(fs.existsSync(targetFileName), true);
+                done();
+            });
+        });
+
+        it('cannot delete todo by undefined', done => {
+            const targetFileName = `${global.App.dataDir}/f528cf2e-3488-4d1d-a3a2-022c01b3ebca.json`;
+            assert.equal(fs.existsSync(targetFileName), true);
+            Operation.delete('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx').catch(reason => {
+                assert.equal(reason, 'Cannot find todo');
                 assert.equal(fs.existsSync(targetFileName), true);
                 done();
             });

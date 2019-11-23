@@ -41,6 +41,7 @@ export default class Operation {
     }
 
     static async delete(id) {
+        if (_.isNil(id) || _.toLength(id)) throw 'Illegal id';
         await Store.delete(id);
     }
 }
