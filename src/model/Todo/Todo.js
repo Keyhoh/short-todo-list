@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Id from "./Id";
 import Title from "./Title";
 import Priority from "./Priority";

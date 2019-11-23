@@ -31,8 +31,24 @@ describe('Persistent todo test', function () {
     });
 
     describe('Find todo test', function () {
-        it('finds todo', async () => {
+        it('finds todo', () => {
+            const targetTodo = Operation.create('find me', 2);
+            Operation.toggleCheck(targetTodo);
+            const targetTodoId = '2c007903-4602-4852-a16a-92822d759704';
 
+            const foundTodo = Operation.find(targetTodoId);
+
+            assert.equal(foundTodo.id, targetTodoId);
+            assert.equal(foundTodo.title, targetTodo.title);
+            assert.equal(foundTodo.checked, targetTodo.checked);
+            assert.equal(foundTodo.discarded, targetTodo.discarded);
+        });
+
+        it('does not find todo', () => {
+            assert.throws(() => Operation.find());
+            assert.throws(() => Operation.find(null));
+            assert.throws(() => Operation.find(''));
+            assert.throws(() => Operation.find('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'));
         });
     });
 });

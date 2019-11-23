@@ -34,4 +34,8 @@ export default class Operation {
     static async save(todo){
         await Store.save(todo);
     }
+
+    static find(id){
+        return Store.find(id);
+    }
 }
