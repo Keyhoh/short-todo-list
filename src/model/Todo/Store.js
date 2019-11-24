@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import Todo from "./Todo";
+import ERROR_CODE from "../ERROR_CODE";
 
 const mkdir = () => { if (!fs.existsSync(global.App.dataDir)) fs.mkdirSync(global.App.dataDir); };
 const getFilePath = id => `${global.App.dataDir}/${id}.json`;
@@ -14,7 +15,7 @@ export default class Store {
             try {
                   return Todo.reconstruct(fs.readJsonSync(getFilePath(id)));
             } catch (error) {
-                  throw 'Cannot find todo';
+                  throw new Error(ERROR_CODE.NOT_FOUND_TODO);
             }
       }
 

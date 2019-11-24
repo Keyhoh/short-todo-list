@@ -1,4 +1,5 @@
 import uuid from 'uuid-random';
+import ERROR_CODE from "../ERROR_CODE";
 
 export default class Id {
     _value;
@@ -10,7 +11,7 @@ export default class Id {
     }
 
     static of(value) {
-        if(!Id.isUuid(value)) throw 'Illegal uuid';
+        if(!Id.isUuid(value)) throw new Error(ERROR_CODE.NOT_UUID);
         let id = new Id();
         id._value = value;
         return id;

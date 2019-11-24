@@ -45,19 +45,23 @@ describe('Persistent todo test', function () {
         });
 
         it('does not find todo by undefined', () => {
-            assert.throws(() => Operation.find());
+            assert.throws(() => Operation.find(), Error, ERROR_CODE.ILLEGAL_TODO_ID);
         });
 
         it('does not find todo by null', () => {
-            assert.throws(() => Operation.find(null));
+            assert.throws(() => Operation.find(null), Error, ERROR_CODE.ILLEGAL_TODO_ID);
         });
 
         it('does not find todo by empty', () => {
-            assert.throws(() => Operation.find(''));
+            assert.throws(() => Operation.find(''), Error, ERROR_CODE.NOT_FOUND_TODO);
         });
 
-        it('does not find todo by illegal', () => {
-            assert.throws(() => Operation.find('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'));
+        it('does not find todo by nonexistent id', () => {
+            assert.throws(() => Operation.find('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'), Error, ERROR_CODE.NOT_FOUND_TODO);
+        });
+
+        it('does not find todo by illegal id', async () => {
+            assert.throws(() => Operation.find('abc'), Error, ERROR_CODE.NOT_UUID);
         });
     });
 
@@ -105,24 +109,26 @@ describe('Persistent todo test', function () {
             }
         });
 
-        it('cannot delete todo by empty', done => {
+        it('cannot delete todo by empty', async () => {
             const targetFileName = `${global.App.dataDir}/f528cf2e-3488-4d1d-a3a2-022c01b3ebca.json`;
             assert.equal(fs.existsSync(targetFileName), true);
-            Operation.delete('').catch(reason => {
-                assert.equal(reason, 'Cannot find todo');
-                assert.equal(fs.existsSync(targetFileName), true);
-                done();
-            });
+            try {
+                await Operation.delete('');
+                assert.fail();
+            } catch (error) {
+                assert.equal(error.code, ERROR_CODE.NOT_FOUND_TODO);
+            }
         });
 
-        it('cannot delete todo by illegal', done => {
+        it('cannot delete todo by illegal', async () => {
             const targetFileName = `${global.App.dataDir}/f528cf2e-3488-4d1d-a3a2-022c01b3ebca.json`;
             assert.equal(fs.existsSync(targetFileName), true);
-            Operation.delete('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx').catch(reason => {
-                assert.equal(reason, 'Cannot find todo');
-                assert.equal(fs.existsSync(targetFileName), true);
-                done();
-            });
+            try {
+                await Operation.delete('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
+                assert.fail();
+            } catch (error) {
+                assert.equal(error.code, ERROR_CODE.NOT_FOUND_TODO);
+            }
         });
     });
 });
