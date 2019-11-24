@@ -1,6 +1,7 @@
 import assert from 'assert';
 import fs from 'fs-extra';
 import Operation from "../../src/model/Operation";
+import uuid from 'uuid-random';
 
 global.App = global.App || {};
 global.App.dataDir = `${__dirname}/temp`;
@@ -11,7 +12,7 @@ describe('Persistent todo test', function () {
 
     describe('Save todo test', function () {
         it('saves todo', async () => {
-            const targetTodo = Operation.create();
+            const targetTodo = Operation.create(uuid(), Math.floor(Math.random() * 3));
             const savedFileName = `${global.App.dataDir}/${targetTodo.id}.json`;
 
             assert.throws(() => fs.readFileSync(savedFileName));
