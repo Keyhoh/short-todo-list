@@ -74,7 +74,7 @@ describe('Persistent todo test', function () {
             assert.equal(fs.existsSync(targetFileName), false);
         });
 
-        it('cannot delete un-discarded todo', async () => {
+        it('cannot delete un-discarded todo',async  () => {
             const targetTodoId = 'f528cf2e-3488-4d1d-a3a2-022c01b3ebca';
             const targetFileName = `${global.App.dataDir}/${targetTodoId}.json`;
             assert.equal(fs.existsSync(targetFileName), true);

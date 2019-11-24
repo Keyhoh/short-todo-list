@@ -14,13 +14,13 @@ describe('Create todo operation test', function () {
         });
 
         it('occurs error by empty title', () => {
-            assert.throws(() => Operation.create(''));
-            assert.throws(() => Operation.create(null));
+            assert.throws(() => Operation.create(''), Error, ERROR_CODE.EMPTY_TITLE);
+            assert.throws(() => Operation.create(null), Error, ERROR_CODE.EMPTY_TITLE);
         });
 
         it('is too long title', () => {
             assert.doesNotThrow(() => Operation.create('01234567'.repeat(8)));
-            assert.throws(() => Operation.create('01234567'.repeat(8) + 'a'));
+            assert.throws(() => Operation.create('01234567'.repeat(8) + 'a'), Error, ERROR_CODE.TOO_LONG_TITLE);
         });
     });
 

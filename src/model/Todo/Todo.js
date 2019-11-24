@@ -17,7 +17,6 @@ export default class Todo {
     }
 
     static reconstruct({ id, title, priority, checked, discarded }) {
-        if (_.isNil(id) || _.isNil(title) || _.isNil(priority) || _.isNaN(Number(priority))) throw 'Unexpected todo';
         let todo = new Todo(title, priority);
         todo._id = Id.of(id);
         todo._checked = !!checked;

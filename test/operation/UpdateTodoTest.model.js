@@ -1,5 +1,6 @@
 import assert from 'assert';
 import Operation from "../../src/model/Operation";
+import ERROR_CODE from "../../src/model/ERROR_CODE";
 
 describe('Update todo operation test', function () {
     let todo;
@@ -17,19 +18,19 @@ describe('Update todo operation test', function () {
 
         it('is not able to update with null', () => {
             assert.equal(todo.title, 'title');
-            assert.throws(() => Operation.updateTitle(null));
+            assert.throws(() => Operation.updateTitle(null), Error, ERROR_CODE.EMPTY_TITLE);
             assert.equal(todo.title, 'title');
         });
 
         it('is not able to update with empty', () => {
             assert.equal(todo.title, 'title');
-            assert.throws(() => Operation.updateTitle(''));
+            assert.throws(() => Operation.updateTitle(''), Error, ERROR_CODE.EMPTY_TITLE);
             assert.equal(todo.title, 'title');
         });
 
         it('is not able to update with too long', () => {
             assert.equal(todo.title, 'title');
-            assert.throws(() => Operation.updateTitle(todo, '01234567'.repeat(8) + 'a'));
+            assert.throws(() => Operation.updateTitle(todo, '01234567'.repeat(8) + 'a'), Error, ERROR_CODE.TOO_LONG_TITLE);
             assert.equal(todo.title, 'title');
         });
     });
