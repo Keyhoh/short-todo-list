@@ -23,7 +23,7 @@ export default class Store {
             if (Store.find(id).discarded) {
                   await fs.remove(getFilePath(id));
             } else {
-                  throw 'Cannot delete todo';
+                  throw new Error(ERROR_CODE.CANNOT_DELETE_TODO);
             }
       }
 }

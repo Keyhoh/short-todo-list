@@ -74,15 +74,17 @@ describe('Persistent todo test', function () {
             assert.equal(fs.existsSync(targetFileName), false);
         });
 
-        it('cannot delete un-discarded todo', done => {
+        it('cannot delete un-discarded todo', async () => {
             const targetTodoId = 'f528cf2e-3488-4d1d-a3a2-022c01b3ebca';
             const targetFileName = `${global.App.dataDir}/${targetTodoId}.json`;
             assert.equal(fs.existsSync(targetFileName), true);
-            Operation.delete(targetTodoId).catch(reason => {
-                assert.equal(reason, 'Cannot delete todo');
+            try {
+                await Operation.delete(targetTodoId);
+                assert.fail();
+            } catch (error) {
+                assert.equal(error.code, ERROR_CODE.CANNOT_DELETE_TODO);
                 assert.equal(fs.existsSync(targetFileName), true);
-                done();
-            });
+            }
         });
 
         it('cannot delete todo by undefined', async () => {
