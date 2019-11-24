@@ -15,7 +15,7 @@ export default class Store {
             try {
                   return Todo.reconstruct(fs.readJsonSync(getFilePath(id)));
             } catch (error) {
-                  throw new Error(ERROR_CODE.NOT_FOUND_TODO);
+                  throw ERROR_CODE.NOT_FOUND_TODO;
             }
       }
 
@@ -23,7 +23,7 @@ export default class Store {
             if (Store.find(id).discarded) {
                   await fs.remove(getFilePath(id));
             } else {
-                  throw new Error(ERROR_CODE.CANNOT_DELETE_TODO);
+                  throw ERROR_CODE.CANNOT_DELETE_TODO;
             }
       }
 }

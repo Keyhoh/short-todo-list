@@ -4,14 +4,14 @@ import ERROR_CODE from "../ERROR_CODE";
 export default class Id {
     _value;
 
-    static new(){
+    static new() {
         let id = new Id();
         id._value = uuid();
         return id;
     }
 
     static of(value) {
-        if(!Id.isUuid(value)) throw new Error(ERROR_CODE.NOT_UUID);
+        if (!Id.isUuid(value)) throw ERROR_CODE.NOT_UUID;
         let id = new Id();
         id._value = value;
         return id;
@@ -21,7 +21,7 @@ export default class Id {
         return this._value;
     }
 
-    static isUuid(id){
+    static isUuid(id) {
         const uuidPattern = /^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$/;
         return uuidPattern.test(id);
     }
