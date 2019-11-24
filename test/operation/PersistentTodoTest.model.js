@@ -103,7 +103,17 @@ describe('Persistent todo test', function () {
             });
         });
 
-        it('cannot delete todo by undefined', done => {
+        it('cannot delete todo by empty', done => {
+            const targetFileName = `${global.App.dataDir}/f528cf2e-3488-4d1d-a3a2-022c01b3ebca.json`;
+            assert.equal(fs.existsSync(targetFileName), true);
+            Operation.delete('').catch(reason => {
+                assert.equal(reason, 'Cannot find todo');
+                assert.equal(fs.existsSync(targetFileName), true);
+                done();
+            });
+        });
+
+        it('cannot delete todo by illegal', done => {
             const targetFileName = `${global.App.dataDir}/f528cf2e-3488-4d1d-a3a2-022c01b3ebca.json`;
             assert.equal(fs.existsSync(targetFileName), true);
             Operation.delete('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx').catch(reason => {
