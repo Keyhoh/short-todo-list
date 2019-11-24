@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import Todo from "./Todo/Todo";
 import Store from "./Todo/Store";
+import ERROR_CODE from "./ERROR_CODE";
 export default class Operation {
     static create(title, priority) {
         return new Todo(title, priority);
@@ -36,12 +37,12 @@ export default class Operation {
     }
 
     static find(id) {
-        if (_.isNil(id) || _.toLength(id)) throw 'Illegal id';
+        if (_.isNil(id) || _.toLength(id)) throw new Error(ERROR_CODE.ILLEGAL_TODO_ID_ERROR);
         return Store.find(id);
     }
 
     static async delete(id) {
-        if (_.isNil(id) || _.toLength(id)) throw 'Illegal id';
+        if (_.isNil(id) || _.toLength(id)) throw new Error(ERROR_CODE.ILLEGAL_TODO_ID_ERROR);
         await Store.delete(id);
     }
 }

@@ -1,7 +1,8 @@
 import assert from 'assert';
 import fs from 'fs-extra';
-import Operation from "../../src/model/Operation";
 import uuid from 'uuid-random';
+import Operation from "../../src/model/Operation";
+import ERROR_CODE from "../../src/model/ERROR_CODE";
 
 global.App = global.App || {};
 global.App.dataDir = `${__dirname}/temp`;
@@ -80,24 +81,28 @@ describe('Persistent todo test', function () {
             });
         });
 
-        it('cannot delete todo by undefined', done => {
+        it('cannot delete todo by undefined', async () => {
             const targetFileName = `${global.App.dataDir}/f528cf2e-3488-4d1d-a3a2-022c01b3ebca.json`;
             assert.equal(fs.existsSync(targetFileName), true);
-            Operation.delete().catch(reason => {
-                assert.equal(reason, 'Illegal id');
+            try {
+                await Operation.delete();
+                assert.fail();
+            } catch (error) {
+                assert.equal(error.code, ERROR_CODE.ILLEGAL_TODO_ID_ERROR);
                 assert.equal(fs.existsSync(targetFileName), true);
-                done();
-            });
+            }
         });
 
-        it('cannot delete todo by null', done => {
+        it('cannot delete todo by null', async () => {
             const targetFileName = `${global.App.dataDir}/f528cf2e-3488-4d1d-a3a2-022c01b3ebca.json`;
             assert.equal(fs.existsSync(targetFileName), true);
-            Operation.delete(null).catch(reason => {
-                assert.equal(reason, 'Illegal id');
+            try {
+                await Operation.delete(null);
+                assert.fail();
+            } catch (error) {
+                assert.equal(error.code, ERROR_CODE.ILLEGAL_TODO_ID_ERROR);
                 assert.equal(fs.existsSync(targetFileName), true);
-                done();
-            });
+            }
         });
 
         it('cannot delete todo by empty', done => {

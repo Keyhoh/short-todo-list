@@ -1,0 +1,3 @@
+const ERROR = {
+    "ILLEGAL_TODO_ID": 'ILLEGAL_TODO_ID_ERROR',
+}
