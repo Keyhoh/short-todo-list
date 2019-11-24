@@ -6,27 +6,23 @@ global.App = global.App || {};
 global.App.dataDir = `${__dirname}/temp`;
 
 describe('Persistent todo test', function () {
-    let todo;
 
     this.beforeAll(() => fs.copySync(`${__dirname}/data`, global.App.dataDir));
 
-    this.beforeEach(() => todo = Operation.create());
-
-    this.afterEach(() => todo = undefined);
-
     describe('Save todo test', function () {
         it('saves todo', async () => {
-            const savedFileName = `${global.App.dataDir}/${todo.id}.json`;
+            const targetTodo = Operation.create();
+            const savedFileName = `${global.App.dataDir}/${targetTodo.id}.json`;
 
             assert.throws(() => fs.readFileSync(savedFileName));
-            await Operation.save(todo);
+            await Operation.save(targetTodo);
             assert.doesNotThrow(() => fs.readFileSync(savedFileName));
 
             const savedObject = JSON.parse(fs.readFileSync(savedFileName));
-            assert.equal(savedObject.id, todo.id);
-            assert.equal(savedObject.title, todo.title);
-            assert.equal(savedObject.checked, todo.checked);
-            assert.equal(savedObject.discarded, todo.discarded);
+            assert.equal(savedObject.id, targetTodo.id);
+            assert.equal(savedObject.title, targetTodo.title);
+            assert.equal(savedObject.checked, targetTodo.checked);
+            assert.equal(savedObject.discarded, targetTodo.discarded);
 
             fs.removeSync(savedFileName);
         });
