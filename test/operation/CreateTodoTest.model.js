@@ -1,5 +1,6 @@
 import assert from 'assert';
 import Operation from "../../src/model/Operation";
+import ERROR_CODE from "../../src/model/ERROR_CODE";
 
 describe('Create todo operation test', function () {
     describe('Todo title test', function () {
@@ -35,8 +36,8 @@ describe('Create todo operation test', function () {
         });
 
         it('is unknown priority', () => {
-            assert.throws(() => Operation.create(undefined, null));
-            assert.throws(() => Operation.create(undefined, -1));
+            assert.throws(() => Operation.create(undefined, null), Error, ERROR_CODE.UNKNOWN_PRIORITY);
+            assert.throws(() => Operation.create(undefined, -1), Error, ERROR_CODE.UNKNOWN_PRIORITY);
         });
     });
 

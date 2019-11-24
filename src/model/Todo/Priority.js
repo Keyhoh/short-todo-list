@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import ERROR_CODE from "../ERROR_CODE";
 
 export default class Priority {
     _level;
@@ -6,7 +7,7 @@ export default class Priority {
 
     constructor(p = 1) {
         this._level = Priority.LEVEL[p];
-        if (_.isUndefined(this._level)) throw 'Unknown priority';
+        if (_.isUndefined(this._level)) throw new Error(ERROR_CODE.UNKNOWN_PRIORITY);
     }
 
     static of(p) {
