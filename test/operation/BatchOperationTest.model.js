@@ -64,10 +64,6 @@ describe('Batch operation test', function () {
             files.map(f => `${global.App.dataDir}/${f}`)
                 .filter(f => fs.existsSync(f))
                 .map(f => fs.readJSONSync(f))
-                .map(f=>{
-                    console.log(f)
-                    return f;
-                })
                 .forEach(j => assert.equal(j.discarded, false));
         });
     });

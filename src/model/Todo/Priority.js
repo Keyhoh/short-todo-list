@@ -7,7 +7,7 @@ export default class Priority {
 
     constructor(p = 1) {
         this._level = Priority.LEVEL[p];
-        if (_.isUndefined(this._level)) throw ERROR_CODE.UNKNOWN_PRIORITY;
+        if (_.isUndefined(this._level)) throw new Error(ERROR_CODE.UNKNOWN_PRIORITY);
     }
 
     static of(p) {

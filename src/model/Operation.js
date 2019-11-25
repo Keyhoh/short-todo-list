@@ -41,17 +41,16 @@ export default class Operation {
     }
 
     static find(id) {
-        if (_.isNil(id) || _.toLength(id)) throw ERROR_CODE.ILLEGAL_TODO_ID;
+        if (_.isNil(id) || _.toLength(id)) throw new Error(ERROR_CODE.ILLEGAL_TODO_ID);
         return Store.find(id);
     }
 
     static async delete(id) {
-        if (_.isNil(id) || _.toLength(id)) throw ERROR_CODE.ILLEGAL_TODO_ID;
+        if (_.isNil(id) || _.toLength(id)) throw new Error(ERROR_CODE.ILLEGAL_TODO_ID);
         await Store.delete(id);
     }
 
     static async deleteAll(){
-        console.log('delete ALL!')
         await Store.deleteAll();
     }
 }

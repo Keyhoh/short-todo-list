@@ -45,23 +45,23 @@ describe('Persistent todo test', function () {
         });
 
         it('does not find todo by undefined', () => {
-            assert.throws(() => Operation.find(), ERROR_CODE.ILLEGAL_TODO_ID);
+            assert.throws(() => Operation.find(), new Error(ERROR_CODE.ILLEGAL_TODO_ID));
         });
 
         it('does not find todo by null', () => {
-            assert.throws(() => Operation.find(null), ERROR_CODE.ILLEGAL_TODO_ID);
+            assert.throws(() => Operation.find(null), new Error(ERROR_CODE.ILLEGAL_TODO_ID));
         });
 
         it('does not find todo by empty', () => {
-            assert.throws(() => Operation.find(''), ERROR_CODE.NOT_FOUND_TODO);
+            assert.throws(() => Operation.find(''), new Error(ERROR_CODE.NOT_FOUND_TODO));
         });
 
         it('does not find todo by nonexistent id', () => {
-            assert.throws(() => Operation.find('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'), ERROR_CODE.NOT_FOUND_TODO);
+            assert.throws(() => Operation.find('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'), new Error(ERROR_CODE.NOT_FOUND_TODO));
         });
 
         it('does not find todo by illegal id', async () => {
-            assert.throws(() => Operation.find('abc'), ERROR_CODE.NOT_FOUND_TODO);
+            assert.throws(() => Operation.find('abc'), new Error(ERROR_CODE.NOT_FOUND_TODO));
         });
     });
 
@@ -82,7 +82,7 @@ describe('Persistent todo test', function () {
                 await Operation.delete(targetTodoId);
                 assert.fail();
             } catch (error) {
-                assert.equal(error, ERROR_CODE.CANNOT_DELETE_TODO);
+                assert.deepEqual(error, new Error(ERROR_CODE.CANNOT_DELETE_TODO));
                 assert.equal(fs.existsSync(targetFileName), true);
             }
         });
@@ -94,7 +94,7 @@ describe('Persistent todo test', function () {
                 await Operation.delete();
                 assert.fail();
             } catch (error) {
-                assert.equal(error, ERROR_CODE.ILLEGAL_TODO_ID);
+                assert.deepEqual(error, new Error(ERROR_CODE.ILLEGAL_TODO_ID));
                 assert.equal(fs.existsSync(targetFileName), true);
             }
         });
@@ -106,7 +106,7 @@ describe('Persistent todo test', function () {
                 await Operation.delete(null);
                 assert.fail();
             } catch (error) {
-                assert.equal(error.code, ERROR_CODE.ILLEGAL_TODO_ID_ERROR);
+                assert.deepEqual(error, new Error(ERROR_CODE.ILLEGAL_TODO_ID));
                 assert.equal(fs.existsSync(targetFileName), true);
             }
         });
@@ -118,7 +118,7 @@ describe('Persistent todo test', function () {
                 await Operation.delete('');
                 assert.fail();
             } catch (error) {
-                assert.equal(error, ERROR_CODE.NOT_FOUND_TODO);
+                assert.deepEqual(error, new Error(ERROR_CODE.NOT_FOUND_TODO));
             }
         });
 
@@ -129,7 +129,7 @@ describe('Persistent todo test', function () {
                 await Operation.delete('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
                 assert.fail();
             } catch (error) {
-                assert.equal(error, ERROR_CODE.NOT_FOUND_TODO);
+                assert.deepEqual(error, new Error(ERROR_CODE.NOT_FOUND_TODO));
             }
         });
     });

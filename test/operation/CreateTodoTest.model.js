@@ -14,13 +14,13 @@ describe('Create todo operation test', function () {
         });
 
         it('occurs error by empty title', () => {
-            assert.throws(() => Operation.create(''), ERROR_CODE.EMPTY_TITLE);
-            assert.throws(() => Operation.create(null), ERROR_CODE.EMPTY_TITLE);
+            assert.throws(() => Operation.create(''), new Error(ERROR_CODE.EMPTY_TITLE));
+            assert.throws(() => Operation.create(null), new Error(ERROR_CODE.EMPTY_TITLE));
         });
 
         it('is too long title', () => {
             assert.doesNotThrow(() => Operation.create('01234567'.repeat(8)));
-            assert.throws(() => Operation.create('01234567'.repeat(8) + 'a'), ERROR_CODE.TOO_LONG_TITLE);
+            assert.throws(() => Operation.create('01234567'.repeat(8) + 'a'), new Error(ERROR_CODE.TOO_LONG_TITLE));
         });
     });
 
@@ -36,8 +36,8 @@ describe('Create todo operation test', function () {
         });
 
         it('is unknown priority', () => {
-            assert.throws(() => Operation.create(undefined, null), ERROR_CODE.UNKNOWN_PRIORITY);
-            assert.throws(() => Operation.create(undefined, -1), ERROR_CODE.UNKNOWN_PRIORITY);
+            assert.throws(() => Operation.create(undefined, null), new Error(ERROR_CODE.UNKNOWN_PRIORITY));
+            assert.throws(() => Operation.create(undefined, -1), new Error(ERROR_CODE.UNKNOWN_PRIORITY));
         });
     });
 

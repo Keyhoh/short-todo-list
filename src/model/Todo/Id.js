@@ -11,7 +11,7 @@ export default class Id {
     }
 
     static of(value) {
-        if (!Id.isUuid(value)) throw ERROR_CODE.NOT_UUID;
+        if (!Id.isUuid(value)) throw new Error(ERROR_CODE.NOT_UUID);
         let id = new Id();
         id._value = value;
         return id;

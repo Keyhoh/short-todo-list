@@ -18,19 +18,19 @@ describe('Update todo operation test', function () {
 
         it('is not able to update with null', () => {
             assert.equal(todo.title, 'title');
-            assert.throws(() => Operation.updateTitle(todo, null), ERROR_CODE.EMPTY_TITLE);
+            assert.throws(() => Operation.updateTitle(todo, null), new Error(ERROR_CODE.EMPTY_TITLE));
             assert.equal(todo.title, 'title');
         });
 
         it('is not able to update with empty', () => {
             assert.equal(todo.title, 'title');
-            assert.throws(() => Operation.updateTitle(todo, ''), ERROR_CODE.EMPTY_TITLE);
+            assert.throws(() => Operation.updateTitle(todo, ''), new Error(ERROR_CODE.EMPTY_TITLE));
             assert.equal(todo.title, 'title');
         });
 
         it('is not able to update with too long', () => {
             assert.equal(todo.title, 'title');
-            assert.throws(() => Operation.updateTitle(todo, '01234567'.repeat(8) + 'a'), ERROR_CODE.TOO_LONG_TITLE);
+            assert.throws(() => Operation.updateTitle(todo, '01234567'.repeat(8) + 'a'), new Error(ERROR_CODE.TOO_LONG_TITLE));
             assert.equal(todo.title, 'title');
         });
     });
