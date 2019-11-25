@@ -8,8 +8,8 @@
     "build": "electron-builder",
     "test:app": "mocha './test/**/*.app.js'",
     "test:app:watch": "mocha './test/**/*.app.js' --watch",
-    "test:model": "mocha './test/**/*.model.js' --require @babel/register",
-    "test:model:watch": "mocha './test/**/*.model.js' --watch --require @babel/register"
+    "test:operation": "mocha './test/operation/**/*.js' --require @babel/register",
+    "test:operation:watch": "mocha './test/operation/**/*.js' --watch --require @babel/register"
   },
   "keywords": [],
   "author": "iheyhoh",

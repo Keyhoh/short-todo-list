@@ -28,7 +28,7 @@ export default class Operation {
         todo.discard();
     }
 
-    static async discardAll(){
+    static async discardAll() {
         await Store.discardAll();
     }
 
@@ -50,7 +50,7 @@ export default class Operation {
         await Store.delete(id);
     }
 
-    static async deleteAll(){
+    static async deleteAll() {
         await Store.deleteAll();
     }
 }

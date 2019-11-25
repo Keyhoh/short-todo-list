@@ -1,8 +1,8 @@
 import assert from 'assert';
 import fs from 'fs-extra';
 import uuid from 'uuid-random';
-import Operation from "../../src/model/Operation";
-import ERROR_CODE from "../../src/model/ERROR_CODE";
+import Operation from "../../src/operation/Operation";
+import ERROR_CODE from "../../src/operation/ERROR_CODE";
 
 global.App = global.App || {};
 global.App.dataDir = `${__dirname}/temp`;
