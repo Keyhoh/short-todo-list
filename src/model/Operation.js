@@ -28,6 +28,10 @@ export default class Operation {
         todo.discard();
     }
 
+    static async discardAll(){
+        await Store.discardAll();
+    }
+
     static pullUp(todo) {
         todo.pullUp();
     }

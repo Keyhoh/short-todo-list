@@ -69,12 +69,13 @@ export default class Todo {
     }
 
     toJson() {
-        return {
+        const temp=  {
             id: this.id,
             title: this.title,
             priority: this.priority,
             checked: this.checked,
             discarded: this.discarded
         };
+        return temp;
     }
 }
