@@ -28,6 +28,13 @@ export default class Store {
             }
       }
 
+      static async deleteAll() {
+            await Promise.all(
+                  Store.findAll().filter(todo => todo.discarded)
+                        .map(async todo => await Store.delete(todo.id))
+            );
+      }
+
       static findAll() {
             return fs.readdirSync(global.App.dataDir)
                   .map(f => fs.readJSONSync(`${global.App.dataDir}/${f}`))

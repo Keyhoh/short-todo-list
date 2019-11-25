@@ -40,4 +40,35 @@ describe('Batch operation test', function () {
                 .forEach(j => assert.equal(j.discarded, false));
         });
     });
+
+    describe('Delete all discarded todo', function () {
+        let files;
+
+        const getAllFiles = () => fs.readdirSync(global.App.dataDir);
+
+        this.beforeEach(async () => {
+            files = [];
+            for (let i = 0; i < 10; i++) {
+                const todo = Operation.create(`create ${i}`, i % 3);
+                if (i % 2) Operation.discard(todo);
+                files.push(`${todo.id}.json`);
+                await Operation.save(todo);
+            }
+        });
+
+        this.afterEach(() => files.forEach(f => fs.removeSync(`${global.App.dataDir}/${f}`)));
+
+        it('delete only all discarded todo', async () => {
+            assert.deepEqual(files, files.filter(f => getAllFiles().includes(f)));
+            await Operation.deleteAll();
+            files.map(f => `${global.App.dataDir}/${f}`)
+                .filter(f => fs.existsSync(f))
+                .map(f => fs.readJSONSync(f))
+                .map(f=>{
+                    console.log(f)
+                    return f;
+                })
+                .forEach(j => assert.equal(j.discarded, false));
+        });
+    });
 });

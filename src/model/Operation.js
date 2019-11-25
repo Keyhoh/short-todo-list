@@ -49,4 +49,9 @@ export default class Operation {
         if (_.isNil(id) || _.toLength(id)) throw ERROR_CODE.ILLEGAL_TODO_ID;
         await Store.delete(id);
     }
+
+    static async deleteAll(){
+        console.log('delete ALL!')
+        await Store.deleteAll();
+    }
 }
