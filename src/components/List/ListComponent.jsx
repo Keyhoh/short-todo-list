@@ -1,10 +1,18 @@
 import React from 'react';
 import Todo from "../Todo/TodoComponent";
 
+/**
+ * props:
+ *      state: todoの状態（破棄されていない・破棄されている）
+ *      list: todoのリスト
+ * state:
+ *      focusedTodo: フォーカスしているTodo（Todo.id）
+ */
 export default class List extends React.Component {
+    // TODO: フォーカスしているTodoを強調する
     render() {
-        return <div id="todo_list">
-            {this.props.list.map(todo => <Todo name={todo}/>)}
+        return <div className="todo-list">
+            {this.props.list.map(todo => <Todo key={todo.id} name={todo.title}/>)}
         </div>
     }
 }
