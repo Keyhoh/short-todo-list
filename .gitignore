@@ -1,4 +1,8 @@
+# project
 node_modules
 temp
 /dist
 /app/main.js
+
+# vscode
+/.history

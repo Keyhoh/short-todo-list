@@ -4,7 +4,7 @@
   "description": "Todo list that can be operated with shortcut keys.",
   "main": "index.js",
   "scripts": {
-    "start": "electron .",
+    "start": "npm run webpack && electron .",
     "build:win": "npm run webpack && npm run electron:win",
     "electron:win": "node config/electron/windows.js",
     "webpack": "webpack --mode production --config config/webpack.config.js",
