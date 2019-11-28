@@ -25,7 +25,7 @@ export default class App extends React.Component {
     // TODO: フォーカスしているListを強調する
     render() {
         return <>
-            <List key='index_list' list={this.state.indexList} />
+            <List key='index_list' dataKey='index_list' focused={true} list={this.state.indexList} />
             <List key='discarded_list' list={this.state.discardedList} />
         </>
     }

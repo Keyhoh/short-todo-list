@@ -8,11 +8,12 @@
     "build:win": "npm run webpack && npm run electron:win",
     "electron:win": "node config/electron/windows.js",
     "webpack": "webpack --mode production --config config/webpack.config.js",
-    "test": "mocha './test/**/*.js'",
-    "test:watch": "mocha './test/**/*.js' --watch",
+    "test": "mocha './test/**/*.js' --require @babel/register",
+    "test:watch": "mocha './test/**/*.js' --require @babel/register --watch",
     "test:components": "mocha './test/components/**/*.js' --require @babel/register",
+    "test:components:watch": "mocha './test/components/**/*.js' --require @babel/register --watch",
     "test:operation": "mocha './test/operation/**/*.js' --require @babel/register",
-    "test:operation:watch": "mocha './test/operation/**/*.js' --watch --require @babel/register"
+    "test:operation:watch": "mocha './test/operation/**/*.js' --require @babel/register --watch"
   },
   "keywords": [],
   "author": "iheyhoh",
