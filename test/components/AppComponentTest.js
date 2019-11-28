@@ -44,9 +44,24 @@ describe('App component test', function () {
         assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'index_list');
     });
 
-    it('changes focused list', () => {
+    it('changes focused list to discarded list by "l"', () => {
         Simulate.keyDown(container.firstChild, { keyCode: 76 });
         assert.equal(container.getElementsByClassName('focused').length, 1);
         assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'discarded_list');
+        Simulate.keyDown(container.firstChild, { keyCode: 76 });
+        assert.equal(container.getElementsByClassName('focused').length, 1);
+        assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'discarded_list');
+    });
+
+    it('changes focused list to index list by "h"', () => {
+        Simulate.keyDown(container.firstChild, { keyCode: 76 });
+        assert.equal(container.getElementsByClassName('focused').length, 1);
+        assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'discarded_list');
+        Simulate.keyDown(container.firstChild, { keyCode: 72 });
+        assert.equal(container.getElementsByClassName('focused').length, 1);
+        assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'index_list');
+        Simulate.keyDown(container.firstChild, { keyCode: 72 });
+        assert.equal(container.getElementsByClassName('focused').length, 1);
+        assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'index_list');
     });
 });
