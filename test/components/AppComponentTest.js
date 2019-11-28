@@ -43,6 +43,7 @@ describe('App component test', function () {
         Simulate.keyDown(container.firstChild, { keyCode: 76 });
         assert.equal(container.getElementsByClassName('focused').length, 1);
         assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'discarded_list');
+
         Simulate.keyDown(container.firstChild, { keyCode: 76 });
         assert.equal(container.getElementsByClassName('focused').length, 1);
         assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'discarded_list');
@@ -52,9 +53,11 @@ describe('App component test', function () {
         Simulate.keyDown(container.firstChild, { keyCode: 76 });
         assert.equal(container.getElementsByClassName('focused').length, 1);
         assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'discarded_list');
+
         Simulate.keyDown(container.firstChild, { keyCode: 72 });
         assert.equal(container.getElementsByClassName('focused').length, 1);
         assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'index_list');
+
         Simulate.keyDown(container.firstChild, { keyCode: 72 });
         assert.equal(container.getElementsByClassName('focused').length, 1);
         assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'index_list');
