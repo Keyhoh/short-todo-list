@@ -1,6 +1,5 @@
 import { JSDOM } from 'jsdom';
 import path from 'path';
-import fs from 'fs-extra';
 import assert from 'assert';
 import React from 'react';
 import ReactDOM from 'react-dom';
