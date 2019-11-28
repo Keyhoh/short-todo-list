@@ -11,7 +11,7 @@ import Todo from "../Todo/TodoComponent";
 export default class List extends React.Component {
     // TODO: フォーカスしているTodoを強調する
     render() {
-        return <div data-key={this.props.dataKey} className={`${this.props.focused && 'focused'} todo-list`}>
+        return <div data-key={this.props.dataKey} className={`${this.props.focused ? 'focused' : ''} todo-list`}>
             {this.props.list.map(todo => <Todo key={todo.id} name={todo.title} />)}
         </div>
     }

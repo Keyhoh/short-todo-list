@@ -4,7 +4,7 @@ import fs from 'fs-extra';
 import assert from 'assert';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { act } from 'react-dom/test-utils';
+import { act, Simulate } from 'react-dom/test-utils';
 import App from "../../src/components/App";
 
 /** @type {Window} */
@@ -42,5 +42,11 @@ describe('App component test', function () {
     it('default focus is index list', () => {
         assert.equal(container.getElementsByClassName('focused').length, 1);
         assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'index_list');
+    });
+
+    it('changes focused list', () => {
+        Simulate.keyDown(container.firstChild, { keyCode: 76 });
+        assert.equal(container.getElementsByClassName('focused').length, 1);
+        assert.equal(container.getElementsByClassName('focused')[0].getAttribute('data-key'), 'discarded_list');
     });
 });
