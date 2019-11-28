@@ -22,7 +22,7 @@ export default class App extends React.Component {
     }
 
     /**
-     * フォーカスするリストを変更します
+     * フォーカスするリストを変更する
      * 
      * @param {KeyboardEvent} e 
      */
@@ -34,8 +34,6 @@ export default class App extends React.Component {
         }
     }
 
-    // TODO: StoreからTodoを取得する
-    // TODO: Storeから取得したTodoを状態で分類して、状態毎のListを作成する
     // TODO: フォーカスしているListを強調する
     render() {
         return <div onKeyDown={e => this.switchFocus(e)}>

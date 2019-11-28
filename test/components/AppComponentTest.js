@@ -17,10 +17,6 @@ describe('App component test', function () {
     /** @type {HTMLElement} */
     let container;
 
-    this.beforeAll(() => {
-        fs.copySync(path.resolve(__dirname, 'data'), global.App.dataDir);
-    });
-
     this.beforeEach(() => {
         container = document.createElement('div');
         document.body.appendChild(container);
@@ -35,7 +31,6 @@ describe('App component test', function () {
     });
 
     it('has two List-Component', () => {
-        console.log(container.className)
         assert.equal(container.getElementsByClassName('todo-list').length, 2);
     });
 
