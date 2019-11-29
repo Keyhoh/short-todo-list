@@ -1,4 +1,4 @@
-const ERROR = {
+export default {
     "ILLEGAL_TODO_ID": 'ILLEGAL_TODO_ID',
     "UNKNOWN_PRIORITY": 'UNKNOWN_PRIORITY',
     "NOT_UUID": 'NOT_UUID',
@@ -7,5 +7,3 @@ const ERROR = {
     "EMPTY_TITLE": 'EMPTY_TITLE',
     "TOO_LONG_TITLE": 'TOO_LONG_TITLE',
 }
-
-export default ERROR;

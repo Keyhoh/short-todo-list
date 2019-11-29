@@ -14,20 +14,16 @@ export default class App extends React.Component {
             indexList: this.props.todoList.filter(todo => !todo.discarded),
             discardedList: this.props.todoList.filter(todo => todo.discarded)
         }
-        window.addEventListener('keydown', e => this.switchFocus(e));
+        window.addEventListener('focusNextList', () => this.focusDiscardedList());
+        window.addEventListener('focusPrevList', () => this.focusIndexList());
     }
 
-    /**
-     * フォーカスするリストを変更する
-     * 
-     * @param {KeyboardEvent} e 
-     */
-    switchFocus(e) {
-        if (e.keyCode === 76) {
-            this.setState({ focusedList: 'discarded_list' });
-        } else if (e.keyCode === 72) {
-            this.setState({ focusedList: 'index_list' });
-        }
+    focusIndexList() {
+        this.setState({ focusedList: 'index_list' });
+    }
+
+    focusDiscardedList() {
+        this.setState({ focusedList: 'discarded_list' });
     }
 
     render() {
