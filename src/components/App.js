@@ -1,6 +1,5 @@
 import React from 'react';
 import List from "./List/ListComponent";
-import Store from "../operation/Todo/Store";
 import "./style.scss";
 
 /**
@@ -31,7 +30,6 @@ export default class App extends React.Component {
         }
     }
 
-    // TODO: フォーカスしているListを強調する
     render() {
         return <div onKeyDown={e => this.switchFocus(e)}>
             <List

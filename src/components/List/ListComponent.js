@@ -4,10 +4,9 @@ import "./style.scss";
 
 /**
  * props:
- *      state: todoの状態（破棄されていない・破棄されている）
  *      list: todoのリスト
  * state:
- *      focusedTodo: フォーカスしているTodo（Todo.id）
+ *      focusedTodo: フォーカスしているTodoのindex
  */
 export default class List extends React.Component {
     constructor(props) {
@@ -15,7 +14,9 @@ export default class List extends React.Component {
         this.state = { focusedTodo: 0 }
         window.addEventListener('keydown', e => this.switchFocused(e));
     }
+
     switchFocused(e) {
+        // 表示していないリストではフォーカスを移動させない
         if (!this.props.focused) return;
         const focused = this.state.focusedTodo;
         const len = this.props.list.length - 1;
@@ -26,6 +27,7 @@ export default class List extends React.Component {
             this.setState({ focusedTodo: Math.max(focused - 1, 0) });
         }
     }
+
     getTodoArray() {
         return this.props.list.map(
             (todo, idx) => <Todo
@@ -35,7 +37,7 @@ export default class List extends React.Component {
             />
         );
     }
-    // TODO: フォーカスしているTodoを強調する
+
     render() {
         return <div data-key={this.props.dataKey} className={`${this.props.focused ? 'focused' : ''} todo-list`}>
             {this.getTodoArray()}
