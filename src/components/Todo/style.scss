@@ -1,0 +1,8 @@
+@import "../../theme.scss";
+
+.todo {
+  color: #bdd9bb;
+  &.focused {
+    background-color: $emphasis;
+  }
+}

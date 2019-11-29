@@ -2,7 +2,7 @@ import { ipcRenderer } from 'electron';
 import React from 'react';
 import List from "./List/ListComponent";
 import Store from "../operation/Todo/Store";
-import Operation from '../operation/Operation';
+import "./style.scss";
 
 /**
  * state:
