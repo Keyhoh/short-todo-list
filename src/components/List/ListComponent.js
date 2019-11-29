@@ -15,6 +15,11 @@ export default class List extends React.Component {
         window.addEventListener('keydown', e => this.handleKeydown(e));
     }
 
+    /**
+     * 保持しているtodoに対するキーボードショートカット操作
+     * 
+     * @param {KeyboardEvent} e 
+     */
     handleKeydown(e) {
         // 表示していないリストでは操作しない
         if (!this.props.focused) return;
@@ -31,6 +36,10 @@ export default class List extends React.Component {
         }
     }
 
+    /**
+     * フォーカスしているtodoをハイライトする
+     * @param {number} keyCode 
+     */
     switchFocused(keyCode) {
         const focused = this.state.focusedTodo;
         const len = this.props.list.length - 1;
