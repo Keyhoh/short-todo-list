@@ -27,7 +27,7 @@ export default class App extends React.Component {
     }
 
     render() {
-        return <div onKeyDown={e => this.switchFocus(e)}>
+        return <div>
             <List
                 key='index_list'
                 dataKey='index_list'
