@@ -1,5 +1,11 @@
 import EVENT from "./EVENT";
+import MODE from "./MODE";
 
+/**
+ * ノーマルモード時のイベントリスナー
+ * 
+ * @param {KeyboardEvent} e 
+ */
 export function dispatchNormalEvent(e) {
     switch (e.keyCode) {
         case 72: // h
@@ -17,14 +23,34 @@ export function dispatchNormalEvent(e) {
         case 77: // m
             window.dispatchEvent(EVENT.SELECT_TODO);
             break;
-        case 67:
-        case 68:
-        case 71:
-        case 89:
-        case 90:
+        case 67: // c
+        case 68: // d
+        case 71: // g
+            if (e.shiftKey) {
+                window.dispatchEvent(EVENT.GO_BOTTOM);
+                break;
+            }
+        case 89: // y
+        case 90: // z
             App.mode = MODE.WAIT;
             break;
         default:
             break;
     }
+}
+
+export function dispatchWaitEvent(e) {
+    switch (e.keyCode) {
+        case 67: // c
+        case 68: // d
+        case 71: // g
+            window.dispatchEvent(EVENT.GO_TOP);
+            break;
+        case 89: // y
+        case 90: // z
+            break;
+        default:
+            break;
+    }
+    App.mode = MODE.NORMAL;
 }
