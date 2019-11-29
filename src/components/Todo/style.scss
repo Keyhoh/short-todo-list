@@ -1,8 +1,20 @@
 @import "../../theme.scss";
 
 .todo {
-  color: #bdd9bb;
+  color: $font-base;
+  font-size: 16px;
   &.focused {
     background-color: $emphasis;
+  }
+  &.selected {
+    color: $font-emphasis;
+  }
+  > input {
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    background-color: inherit;
+    border: none;
+    outline: none;
   }
 }

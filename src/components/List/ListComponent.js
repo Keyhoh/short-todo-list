@@ -11,20 +11,44 @@ import "./style.scss";
 export default class List extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { focusedTodo: 0 }
-        window.addEventListener('keydown', e => this.switchFocused(e));
+        this.state = { focusedTodo: 0, selectedTodo: null };
+        window.addEventListener('keydown', e => this.handleKeydown(e));
     }
 
-    switchFocused(e) {
-        // 表示していないリストではフォーカスを移動させない
+    handleKeydown(e) {
+        // 表示していないリストでは操作しない
         if (!this.props.focused) return;
+        switch (e.keyCode) {
+            case 77:
+                this.select();
+                break;
+            case 74:
+            case 75:
+                this.switchFocused(e.keyCode);
+                break;
+            default:
+                break;
+        }
+    }
+
+    switchFocused(keyCode) {
         const focused = this.state.focusedTodo;
         const len = this.props.list.length - 1;
 
-        if (e.keyCode === 74) {
+        if (keyCode === 74) {
             this.setState({ focusedTodo: Math.min(focused + 1, len) });
-        } else if (e.keyCode === 75) {
+        } else if (keyCode === 75) {
             this.setState({ focusedTodo: Math.max(focused - 1, 0) });
+        }
+    }
+
+    select() {
+        const curr = this.state.selectedTodo;
+        const next = this.props.list[this.state.focusedTodo].id;
+        if (curr === next) {
+            this.setState({ selectedTodo: null });
+        } else {
+            this.setState({ selectedTodo: next });
         }
     }
 
@@ -34,6 +58,7 @@ export default class List extends React.Component {
                 key={todo.id}
                 todo={todo}
                 focused={this.state.focusedTodo === idx}
+                selected={this.state.selectedTodo === todo.id}
             />
         );
     }
