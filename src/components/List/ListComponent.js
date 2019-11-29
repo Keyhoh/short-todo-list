@@ -12,8 +12,8 @@ export default class List extends React.Component {
     constructor(props) {
         super(props);
         this.state = { focusedTodo: 0, selectedTodo: null };
-        window.addEventListener('goTop', () => this.goTop());
-        window.addEventListener('goBottom', () => this.goBottom());
+        window.addEventListener('gotoTop', () => this.goTop());
+        window.addEventListener('gotoEnd', () => this.goBottom());
         window.addEventListener('selectTodo', () => this.select());
         window.addEventListener('focusNextTodo', () => this.focusNext());
         window.addEventListener('focusPrevTodo', () => this.focusPrev());

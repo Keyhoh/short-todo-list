@@ -1,6 +1,6 @@
 export default {
-    "GO_TOP": new Event('goTop'),
-    "GO_BOTTOM": new Event('goBottom'),
+    "GOTO_TOP": new Event('gotoTop'),
+    "GOTO_END": new Event('gotoEnd'),
     "FOCUS_NEXT_LIST": new Event('focusNextList'),
     "FOCUS_PREV_LIST": new Event('focusPrevList'),
     "SELECT_TODO": new Event('selectTodo'),

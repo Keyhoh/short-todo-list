@@ -1,5 +1,4 @@
 export default {
     NORMAL: 'normal',
-    INSERT: 'insert',
-    WAIT: 'wait'
+    INSERT: 'insert'
 }

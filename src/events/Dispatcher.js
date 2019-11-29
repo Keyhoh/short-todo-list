@@ -1,15 +1,21 @@
 import EVENT from "./EVENT";
-import MODE from "./MODE";
 
 /**
  * ノーマルモード時のイベントリスナー
  * 
  * @param {KeyboardEvent} e 
  */
-export function dispatchNormalEvent(e) {
+export function dispatchNormalModeEvent(e) {
     switch (e.keyCode) {
+        case 73: // i
+                // TODO: enter insertion mode
+            break;
         case 72: // h
-            window.dispatchEvent(EVENT.FOCUS_PREV_LIST);
+            if (e.shiftKey) {
+                // TODO: goto first line on screen
+            } else {
+                window.dispatchEvent(EVENT.FOCUS_PREV_LIST);
+            }
             break;
         case 74: // j
             window.dispatchEvent(EVENT.FOCUS_NEXT_TODO);
@@ -18,39 +24,47 @@ export function dispatchNormalEvent(e) {
             window.dispatchEvent(EVENT.FOCUS_PREV_TODO);
             break;
         case 76: // l
-            window.dispatchEvent(EVENT.FOCUS_NEXT_LIST);
+            if (e.shiftKey) {
+                // TODO: goto last line on screen
+            } else {
+                window.dispatchEvent(EVENT.FOCUS_NEXT_LIST);
+            }
             break;
-        case 77: // m
-            window.dispatchEvent(EVENT.SELECT_TODO);
-            break;
-        case 67: // c
-        case 68: // d
         case 71: // g
             if (e.shiftKey) {
-                window.dispatchEvent(EVENT.GO_BOTTOM);
-                break;
+                window.dispatchEvent(EVENT.GOTO_END);
+            } else {
+                window.dispatchEvent(EVENT.GOTO_TOP);
             }
-        case 89: // y
-        case 90: // z
-            App.mode = MODE.WAIT;
             break;
-        default:
+        case 77: // m
+            if (e.shiftKey) {
+                // TODO: goto middle line on screen
+            } else {
+                window.dispatchEvent(EVENT.SELECT_TODO);
+            }
             break;
-    }
-}
-
-export function dispatchWaitEvent(e) {
-    switch (e.keyCode) {
-        case 67: // c
+        case 79: // o
+            if (e.shiftKey) {
+                // TODO: create todo above
+            } else {
+                // TODO: create todo below
+            }
+            break;
         case 68: // d
-        case 71: // g
-            window.dispatchEvent(EVENT.GO_TOP);
+            if (e.shiftKey) {
+                // TODO: delete todo
+            } else {
+                // TODO: discard todo
+            }
             break;
         case 89: // y
+            // TODO: copy todo
+            break;
         case 90: // z
+            // TODO: position current todo
             break;
         default:
             break;
     }
-    App.mode = MODE.NORMAL;
 }
