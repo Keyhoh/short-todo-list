@@ -13,9 +13,18 @@ export default class List extends React.Component {
     constructor(props) {
         super(props);
         this.state = { focusedTodo: 0 }
+        window.addEventListener('keydown', e => this.switchFocused(e));
     }
-    switchFocused() {
-        this.setState({ focusedTodo: ++this.state.focusedTodo % this.props.list.length });
+    switchFocused(e) {
+        if (!this.props.focused) return;
+        const focused = this.state.focusedTodo;
+        const len = this.props.list.length - 1;
+
+        if (e.keyCode === 74) {
+            this.setState({ focusedTodo: Math.min(focused + 1, len) });
+        } else if (e.keyCode === 75) {
+            this.setState({ focusedTodo: Math.max(focused - 1, 0) });
+        }
     }
     getTodoArray() {
         return this.props.list.map(
