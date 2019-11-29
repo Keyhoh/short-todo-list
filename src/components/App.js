@@ -1,4 +1,3 @@
-import { ipcRenderer } from 'electron';
 import React from 'react';
 import List from "./List/ListComponent";
 import Store from "../operation/Todo/Store";
@@ -11,15 +10,12 @@ import "./style.scss";
 export default class App extends React.Component {
     constructor(props) {
         super(props);
-
-        global.App = global.App || { dataDir: ipcRenderer.sendSync('get-data-dir') };
-
-        const FullList = Store.findAll();
         this.state = {
             focusedList: 'index_list',
-            indexList: FullList.filter(todo => !todo.discarded),
-            discardedList: FullList.filter(todo => todo.discarded)
+            indexList: this.props.todoList.filter(todo => !todo.discarded),
+            discardedList: this.props.todoList.filter(todo => todo.discarded)
         }
+        window.addEventListener('keydown', e => this.switchFocus(e));
     }
 
     /**
