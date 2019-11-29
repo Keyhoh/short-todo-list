@@ -29,7 +29,7 @@ describe('List component test', function () {
 
     it('has the right todo', () => {
         TODO_LIST.forEach(todo => {
-            expect(container).to.contain(<Todo key={todo.id} name={todo.title} />);
+            expect(container).to.contain(<Todo key={todo.id} todo={todo} />);
         });
     });
 });

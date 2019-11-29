@@ -12,7 +12,7 @@ export default class List extends React.Component {
     // TODO: フォーカスしているTodoを強調する
     render() {
         return <div data-key={this.props.dataKey} className={`${this.props.focused ? 'focused' : ''} todo-list`}>
-            {this.props.list.map(todo => <Todo key={todo.id} name={todo.title} />)}
+            {this.props.list.map(todo => <Todo key={todo.id} todo={todo} />)}
         </div>
     }
 }
