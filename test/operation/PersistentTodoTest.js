@@ -1,11 +1,12 @@
 import assert from 'assert';
+import path from 'path';
 import fs from 'fs-extra';
 import uuid from 'uuid-random';
 import Operation from "../../src/operation/Operation";
 import ERROR_CODE from "../../src/operation/ERROR_CODE";
 
 global.App = global.App || {};
-global.App.dataDir = `${__dirname}/temp`;
+global.App.dataDir = path.resolve(__dirname, 'temp');
 
 describe('Persistent todo test', function () {
 
