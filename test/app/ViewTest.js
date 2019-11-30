@@ -100,7 +100,7 @@ describe('Shortcut keys test', function () {
             await cursorIsOn('index_list', 1);
         });
 
-        it('cursor goes to bottom by G', () => {
+        it('cursor goes to bottom by G', async () => {
             const allTodo = await this.app.client.$$('.todo-list[data-key="index_list"]>.todo');
             await this.app.client.keys('G');
             await cursorIsOn('index_list', allTodo.length);
