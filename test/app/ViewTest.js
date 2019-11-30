@@ -99,5 +99,16 @@ describe('Shortcut keys test', function () {
             await this.app.client.keys('k');
             await cursorIsOn('index_list', 1);
         });
+
+        it('cursor goes to bottom by G', () => {
+            const allTodo = await this.app.client.$$('.todo-list[data-key="index_list"]>.todo');
+            await this.app.client.keys('G');
+            await cursorIsOn('index_list', allTodo.length);
+        });
+
+        it('cursor does not go to bottom by G in discarded list', async () => {
+            await this.app.client.keys('G');
+            await cursorIsOn('discarded_list', 1);
+        });
     });
 });
