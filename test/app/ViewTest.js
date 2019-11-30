@@ -21,31 +21,58 @@ describe('Application launch', function () {
     });
 
     describe('Move cursor', () => {
-        it('cursor is on the first todo', async () => {
-            /** @type {string} */
-            const firstTodoClass = await this.app.client.$('.todo-list[data-key="index_list"]>.todo:nth-of-type(1)').getAttribute('class');
-            const otherTodo = await this.app.client.$$('.todo-list[data-key="index_list"]>.todo:not(:nth-of-type(1))');
-            for (let i = 1; i <= otherTodo.length; i++) {
-                if (i === 1) return;
+        const cursorIsOn = async (list, line) => {
+            const todoClassOnTheLine = await this.app.client.$(`.todo-list[data-key="${list}"]>.todo:nth-of-type(${line})`).getAttribute('class');
+            const allTodo = await this.app.client.$$('.todo-list[data-key="index_list"]>.todo');
+            for (let i = 1; i <= allTodo.length; i++) {
+                if (i === line) return;
                 /** @type {string} */
-                const todoClass = await this.app.client.$(`.todo-list[data-key="index_list"]>.todo:nth-of-type(${i})`).getAttribute('class');
+                const todoClass = await this.app.client.$(`.todo-list[data-key="${list}"]>.todo:nth-of-type(${i})`).getAttribute('class');
                 assert.equal(todoClass.split(' ').includes('focused'), false);
             }
-            assert.equal(firstTodoClass.split(' ').includes('focused'), true);
+            assert.equal(todoClassOnTheLine.split(' ').includes('focused'), true);
+        }
+        it('cursor is on the first todo in index list', async () => {
+            await cursorIsOn('index_list', 1);
+        });
+
+        it('cursor is on the first todo in discarded list', async () => {
+            await cursorIsOn('discarded_list', 1);
         });
 
         it('cursor moves down by j', async () => {
             await this.app.client.keys('j');
-            /** @type {string} */
-            const secondTodoClass = await this.app.client.$('.todo-list[data-key="index_list"]>.todo:nth-of-type(2)').getAttribute('class');
+            await cursorIsOn('index_list', 2);
+        });
+
+        it('cursor does not move down by j in unfocused list', async () => {
+            await this.app.client.keys('j');
+            await cursorIsOn('discarded_list', 1);
+        });
+
+        it('cursor does not move down below the bottom', async () => {
             const allTodo = await this.app.client.$$('.todo-list[data-key="index_list"]>.todo');
-            for (let i = 1; i <= allTodo.length; i++) {
-                if (i === 2) return;
-                /** @type {string} */
-                const todoClass = await this.app.client.$(`.todo-list[data-key="index_list"]>.todo:nth-of-type(${i})`).getAttribute('class');
-                assert.equal(todoClass.split(' ').includes('focused'), false);
+            const bottom = allTodo.length;
+            let counter = 0;
+            while (counter < bottom + 10) {
+                await this.app.client.keys('j');
+                counter++;
             }
-            assert.equal(secondTodoClass.split(' ').includes('focused'), true);
+            await cursorIsOn('index_list', bottom);
+        })
+
+        it('cursor moves up by k', async () => {
+            await this.app.client.keys('j');
+            await this.app.client.keys('j');
+            await this.app.client.keys('k');
+            await cursorIsOn('index_list', 1);
+        });
+
+        it('cursor does not move down by k in unfocused list', async () => {
+            await this.app.client.keys('j');
+            await this.app.client.keys('j');
+            await this.app.client.keys('k');
+            cursorIsOn('discarded_list', 1);
         });
     });
 });
