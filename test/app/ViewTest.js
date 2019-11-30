@@ -3,7 +3,7 @@ const electronPath = require('electron');
 const path = require('path');
 const assert = require('assert');
 
-describe('Application launch', function () {
+describe('Shortcut keys test', function () {
     this.timeout(10000);
 
     beforeEach(() => {
@@ -20,6 +20,8 @@ describe('Application launch', function () {
         }
     });
 
+    const allKey = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
+
     describe('Move cursor', () => {
         const cursorIsOn = async (list, line) => {
             const todoClassOnTheLine = await this.app.client.$(`.todo-list[data-key="${list}"]>.todo:nth-of-type(${line})`).getAttribute('class');
@@ -32,6 +34,15 @@ describe('Application launch', function () {
             }
             assert.equal(todoClassOnTheLine.split(' ').includes('focused'), true);
         }
+
+        [].filter.call(allKey, s => !'jkgG'.includes(s)).forEach(async s => {
+            it(`cursor does not move by ${s}`, async () => {
+                await this.app.client.keys(s);
+                await cursorIsOn('index_list', 1);
+                await cursorIsOn('discarded_list', 1);
+            });
+        });
+
         it('cursor is on the first todo in index list', async () => {
             await cursorIsOn('index_list', 1);
         });
@@ -45,7 +56,7 @@ describe('Application launch', function () {
             await cursorIsOn('index_list', 2);
         });
 
-        it('cursor does not move down by j in unfocused list', async () => {
+        it('cursor does not move down by j in discarded list', async () => {
             await this.app.client.keys('j');
             await cursorIsOn('discarded_list', 1);
         });
