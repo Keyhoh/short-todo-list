@@ -1,5 +1,4 @@
 import assert from 'assert';
-import ERROR_CODE from "../../src/operation/ERROR_CODE";
 import Operation from '../../src/operation/Operation';
 import fs from 'fs-extra';
 

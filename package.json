@@ -14,7 +14,8 @@
     "test:operation": "mocha './test/operation/**/*.js' --require @babel/register",
     "test:operation:watch": "mocha './test/operation/**/*.js' --require @babel/register --watch",
     "test:app": "mocha './test/app/**/*.js' --require @babel/register",
-    "test:app:watch": "mocha './test/app/**/*.js' --require @babel/register --watch"
+    "test:app:watch": "mocha './test/app/**/*.js' --require @babel/register --watch",
+    "test:app:target": "mocha --grep ^target: ./test/app/**/*.js --require @babel/register"
   },
   "keywords": [],
   "author": "iheyhoh",

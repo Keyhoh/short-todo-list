@@ -1,12 +1,17 @@
 const { Application } = require('spectron');
 const electronPath = require('electron');
+const fs = require('fs-extra');
 const path = require('path');
 const assert = require('assert');
 
 describe('Shortcut keys test', function () {
     this.timeout(10000);
 
-    beforeEach(() => {
+    this.beforeAll(() => {
+        fs.copySync(path.resolve(__dirname, 'data'), path.resolve(__dirname, '..', '..', 'node_modules', 'electron', 'dist', 'resources', 'data'));
+    });
+
+    this.beforeEach(() => {
         this.app = new Application({
             path: electronPath,
             args: [path.join(__dirname, '..', '..')]
@@ -14,7 +19,7 @@ describe('Shortcut keys test', function () {
         return this.app.start();
     });
 
-    afterEach(() => {
+    this.afterEach(() => {
         if (this.app && this.app.isRunning()) {
             return this.app.stop();
         }
@@ -23,6 +28,7 @@ describe('Shortcut keys test', function () {
     const allKey = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
 
     describe('Move cursor', () => {
+
         const cursorIsOn = async (list, line) => {
             const todoClassOnTheLine = await this.app.client.$(`.todo-list[data-key="${list}"]>.todo:nth-of-type(${line})`).getAttribute('class');
             const allTodo = await this.app.client.$$('.todo-list[data-key="index_list"]>.todo');
@@ -43,7 +49,9 @@ describe('Shortcut keys test', function () {
             });
         });
 
-        it('cursor is on the first todo in index list', async () => {
+        it('target: cursor is on the first todo in index list', async () => {
+            const dataDir = await this.app.client.electron.ipcRenderer.sendSync('get-data-dir');
+            console.log(dataDir);
             await cursorIsOn('index_list', 1);
         });
 
