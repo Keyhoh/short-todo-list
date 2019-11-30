@@ -110,5 +110,14 @@ describe('Shortcut keys test', function () {
             await this.app.client.keys('G');
             await cursorIsOn('discarded_list', 1);
         });
+
+        it('cursor goes to top by g', async () => {
+            await this.app.client.keys('j');
+            await this.app.client.keys('j');
+            await this.app.client.keys('j');
+            await this.app.client.keys('j');
+            await this.app.client.keys('g');
+            await cursorIsOn('index_list', 1);
+        });
     });
 });
