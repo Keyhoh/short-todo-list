@@ -87,11 +87,17 @@ describe('Shortcut keys test', function () {
             await cursorIsOn('index_list', 1);
         });
 
-        it('cursor does not move down by k in unfocused list', async () => {
+        it('cursor does not move up in unfocused list', async () => {
             await this.app.client.keys('j');
             await this.app.client.keys('j');
             await this.app.client.keys('k');
-            cursorIsOn('discarded_list', 1);
+            await cursorIsOn('discarded_list', 1);
+        });
+
+        it('cursor does not move up over the top', async () => {
+            await this.app.client.keys('k');
+            await this.app.client.keys('k');
+            await cursorIsOn('index_list', 1);
         });
     });
 });
