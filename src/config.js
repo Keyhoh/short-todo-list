@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron';
 import MODE from "./events/MODE";
-import { dispatchNormalModeEvent, dispatchWaitEvent } from "./events/Dispatcher";
+import { dispatchNormalModeEvent } from "./events/Dispatcher";
 
 global.App = global.App || {};
 

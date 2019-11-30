@@ -19,7 +19,8 @@ function createWindow() {
   // そしてこのアプリの index.html をロード
   win.loadFile('index.html')
 
-  win.webContents.openDevTools();
+  // テスト実行時、開発者ツールが開いているとテストが完了しない
+  // win.webContents.openDevTools();
 
   // ウィンドウが閉じられた時に発火
   win.on('closed', () => {
