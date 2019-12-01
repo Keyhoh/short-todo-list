@@ -52,8 +52,6 @@ describe('Key to move in list', function () {
     });
 
     it('cursor is on the first todo in index list', async () => {
-        const dataDir = await this.app.client.electron.ipcRenderer.sendSync('get-data-dir');
-        console.log(dataDir);
         await cursorIsOn('index_list', 1);
     });
 
