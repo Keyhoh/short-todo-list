@@ -1,4 +1,5 @@
 import EVENT from "./EVENT";
+import MODE from "./MODE";
 
 /**
  * ノーマルモード時のイベントリスナー
@@ -8,7 +9,8 @@ import EVENT from "./EVENT";
 export function dispatchNormalModeEvent(e) {
     switch (e.keyCode) {
         case 73: // i
-                // TODO: enter insertion mode
+            App.mode = MODE.INSERT;
+            window.dispatchEvent(EVENT.SWITCH_MODE);
             break;
         case 72: // h
             if (e.shiftKey) {

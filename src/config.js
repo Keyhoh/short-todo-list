@@ -8,7 +8,6 @@ global.App = global.App || {};
 App.dataDir = ipcRenderer.sendSync('get-data-dir');
 fs.pathExistsSync(global.App.dataDir) || fs.mkdirSync(global.App.dataDir);
 App.mode = MODE.NORMAL;
-App.preEvent = null;
 
 /**
  * キーボードイベントのリスナー
