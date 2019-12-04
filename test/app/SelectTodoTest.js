@@ -29,6 +29,15 @@ describe('Select todo', function () {
         }
     });
 
+    const allKey = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
+
+    [].filter.call(allKey, s => !'m'.includes(s)).forEach(async s => {
+        it(`does not select todo by ${s}`, async () => {
+            const selected = await this.app.client.$$('.todo-list>.todo.selected');
+            assert.equal(selected.length, 0);
+        });
+    });
+
     it('default selected todo is none', async () => {
         const selected = await this.app.client.$$('.todo-list>.todo.selected');
         assert.equal(selected.length, 0);
