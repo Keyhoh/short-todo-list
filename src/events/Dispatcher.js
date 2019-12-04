@@ -33,6 +33,7 @@ export function dispatchSwitchMode(mode) {
  * @param {KeyboardEvent} e 
  */
 export function dispatchNormalModeEvent(e) {
+    if (e.ctrlKey || e.altKey || e.metaKey) return;
     switch (e.key) {
         case ' ':
             getTodo().forEach(ele => ele.dispatchEvent(EVENT.CHECK_TODO));
