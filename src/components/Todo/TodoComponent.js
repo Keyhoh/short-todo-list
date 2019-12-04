@@ -45,6 +45,7 @@ export default class Todo extends React.Component {
 
     render() {
         return <div className={this.getClassName()}>
+            <p>{this.state.title}</p>
             <input
                 type="text"
                 name="title"

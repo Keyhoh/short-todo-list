@@ -13,7 +13,23 @@
   &:not(.entering) {
     pointer-events: none;
   }
+  > p {
+    display: inline;
+  }
+  > input{
+    display: none;
+  }
+  &.entering {
+    > p {
+      display: none;
+    }
+    > input {
+      display: inline;
+    }
+  }
   > input {
+    padding-top: 0px;
+    padding-bottom: 0px;
     width: 100%;
     color: inherit;
     font-size: inherit;
