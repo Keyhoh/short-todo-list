@@ -1,5 +1,26 @@
 import EVENT from "./EVENT";
 import MODE from "./MODE";
+import CLASS_NAME from "../components/CLASS_NAME";
+
+/**
+ * @param {string} class
+ * @returns {[HTMLElement]}
+ */
+const getElementsByClassName = className => [...document.getElementsByClassName(className)];
+
+/**
+ * @returns {HTMLElement}
+ */
+const getApp = () => getElementsByClassName(CLASS_NAME.APP)[0];
+
+/**
+ * @returns {[HTMLElement]}
+ */
+const getTodoList = () => getElementsByClassName(CLASS_NAME.TODO_LIST);
+
+export function dispatchSwitchMode(mode) {
+    getTodoList().forEach(ele => ele.dispatchEvent(EVENT.SWITCH_MODE(mode)));
+}
 
 /**
  * ノーマルモード時のイベントリスナー
@@ -13,31 +34,31 @@ export function dispatchNormalModeEvent(e) {
             e.preventDefault();
             break;
         case 'h':
-            window.dispatchEvent(EVENT.FOCUS_PREV_LIST);
+            getApp().dispatchEvent(EVENT.FOCUS_PREV_LIST);
             break;
         case 'H':
             // TODO: goto first line on screen
             break;
         case 'j':
-            window.dispatchEvent(EVENT.FOCUS_NEXT_TODO);
+            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.FOCUS_NEXT_TODO));
             break;
         case 'k':
-            window.dispatchEvent(EVENT.FOCUS_PREV_TODO);
+            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.FOCUS_PREV_TODO));
             break;
         case 'l':
-            window.dispatchEvent(EVENT.FOCUS_NEXT_LIST);
+            getApp().dispatchEvent(EVENT.FOCUS_NEXT_LIST);
             break;
         case 'L':
             // TODO: goto last line on screen
             break;
         case 'g':
-            window.dispatchEvent(EVENT.GOTO_TOP);
+            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.GOTO_TOP));
             break;
         case 'G':
-            window.dispatchEvent(EVENT.GOTO_END);
+            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.GOTO_END));
             break;
         case 'm':
-            window.dispatchEvent(EVENT.SELECT_TODO);
+            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.SELECT_TODO));
             break;
         case 'M':
             // TODO: goto middle line on screen

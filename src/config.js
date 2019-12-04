@@ -1,8 +1,7 @@
 import { ipcRenderer } from 'electron';
 import fs from 'fs-extra';
 import MODE from "./events/MODE";
-import { dispatchNormalModeEvent, dispatchInsertModeEvent } from "./events/Dispatcher";
-import EVENT from "./events/EVENT";
+import { dispatchNormalModeEvent, dispatchInsertModeEvent, dispatchSwitchMode } from "./events/Dispatcher";
 
 global.App = global.App || {};
 
@@ -29,15 +28,5 @@ window.addEventListener('keydown', e => {
 
 window.addEventListener('switchMode', e => {
     App.mode = e.detail;
-    /** @type e.mode {MODE} */
-    switch (e.detail) {
-        case MODE.NORMAL:
-            window.dispatchEvent(EVENT.SWITCH_TO_NORMAL_MODE);
-            break;
-        case MODE.INSERT:
-            window.dispatchEvent(EVENT.SWITCH_TO_INSERT_MODE);
-            break;
-        default:
-            break;
-    }
+    dispatchSwitchMode(e.detail);
 });

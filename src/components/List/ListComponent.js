@@ -2,6 +2,7 @@ import React from 'react';
 import Todo from "../Todo/TodoComponent";
 import "./style.scss";
 import MODE from '../../events/MODE';
+import CLASS_NAME from '../CLASS_NAME';
 
 /**
  * props:
@@ -10,15 +11,30 @@ import MODE from '../../events/MODE';
  *      focusedTodo: フォーカスしているTodoのindex
  */
 export default class List extends React.Component {
+    /** @type {HTMLElement} */
+    element = null;
+
     constructor(props) {
         super(props);
         this.state = { focusedTodo: 0, enteringTodo: null, selectedTodo: null };
-        window.addEventListener('gotoTop', () => this.goTop());
-        window.addEventListener('gotoEnd', () => this.goBottom());
-        window.addEventListener('selectTodo', () => this.select());
-        window.addEventListener('focusNextTodo', () => this.focusNext());
-        window.addEventListener('focusPrevTodo', () => this.focusPrev());
-        window.addEventListener('switchMode', () => this.switchMode());
+    }
+
+    componentDidMount() {
+        this.element.addEventListener('gotoTop', () => this.goTop());
+        this.element.addEventListener('gotoEnd', () => this.goBottom());
+        this.element.addEventListener('selectTodo', () => this.select());
+        this.element.addEventListener('focusNextTodo', () => this.focusNext());
+        this.element.addEventListener('focusPrevTodo', () => this.focusPrev());
+        this.element.addEventListener('switchMode', () => this.switchMode());
+    }
+
+    componentWillUnmount() {
+        this.element.removeEventListener('gotoTop', () => this.goTop());
+        this.element.removeEventListener('gotoEnd', () => this.goBottom());
+        this.element.removeEventListener('selectTodo', () => this.select());
+        this.element.removeEventListener('focusNextTodo', () => this.focusNext());
+        this.element.removeEventListener('focusPrevTodo', () => this.focusPrev());
+        this.element.removeEventListener('switchMode', () => this.switchMode());
     }
 
     goTop() {
@@ -76,7 +92,11 @@ export default class List extends React.Component {
     }
 
     render() {
-        return <div data-key={this.props.dataKey} className={`${this.props.focused ? 'focused' : ''} todo-list`}>
+        return <div
+            ref={ele => this.element = ele}
+            data-key={this.props.dataKey}
+            className={(this.props.focused ? CLASS_NAME.FOCUSED : '') + ' ' + CLASS_NAME.TODO_LIST}
+        >
             {this.getTodoArray()}
         </div>
     }
