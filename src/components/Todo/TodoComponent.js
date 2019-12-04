@@ -1,19 +1,23 @@
 import React from 'react';
 import "./style.scss";
 import Operation from '../../operation/Operation';
+import CLASS_NAME from '../CLASS_NAME';
 
 export default class Todo extends React.Component {
+    /** @type {HTMLElement} */
+    element = null;
+
     /** @type {HTMLElement} */
     textInput = null;
 
     constructor(props) {
         super(props);
-        this.state = { title: props.todo.title };
-        window.addEventListener('switchToNormalMode', () => this.exit());
+        this.state = { title: props.todo.title, checked: props.todo.checked };
     }
 
-    setTextInputRef(element) {
-        this.textInput = element;
+    componentDidMount() {
+        this.element.addEventListener('checkTodo', () => this.check());
+        this.element.addEventListener('switchToNormalMode', () => this.exit());
     }
 
     componentDidUpdate() {
@@ -25,6 +29,14 @@ export default class Todo extends React.Component {
         }
     }
 
+    check() {
+        if (this.props.focused && !this.props.todo.discarded) {
+            Operation.toggleCheck(this.props.todo);
+            Operation.save(this.props.todo);
+            this.setState({ checked: !this.state.checked });
+        }
+    }
+
     exit() {
         if (this.props.todo.title !== this.state.title) {
             Operation.save(Operation.updateTitle(this.props.todo, this.state.title));
@@ -32,11 +44,11 @@ export default class Todo extends React.Component {
     }
 
     getClassName() {
-        return 'todo'
-            + (this.props.todo.checked ? ' checked' : '')
-            + (this.props.focused ? ' focused' : '')
-            + (this.props.selected ? ' selected' : '')
-            + (this.props.entering ? ' entering' : '');
+        return CLASS_NAME.TODO
+            + (this.props.todo.checked ? ' ' + CLASS_NAME.CHECKED : '')
+            + (this.props.focused ? ' ' + CLASS_NAME.FOCUSED : '')
+            + (this.props.selected ? ' ' + CLASS_NAME.SELECTED : '')
+            + (this.props.entering ? ' ' + CLASS_NAME.ENTERING : '');
     }
 
     handleChange(e) {
@@ -44,7 +56,7 @@ export default class Todo extends React.Component {
     }
 
     render() {
-        return <div className={this.getClassName()}>
+        return <div ref={ele => this.element = ele} className={this.getClassName()}>
             <p>{this.state.title}</p>
             <input
                 type="text"
@@ -52,7 +64,7 @@ export default class Todo extends React.Component {
                 id={this.props.todo.id}
                 value={this.state.title}
                 onChange={e => this.handleChange(e)}
-                ref={ele => this.setTextInputRef(ele)}
+                ref={ele => this.textInput = ele}
             />
         </div >
     }

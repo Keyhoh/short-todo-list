@@ -18,6 +18,11 @@ const getApp = () => getElementsByClassName(CLASS_NAME.APP)[0];
  */
 const getTodoList = () => getElementsByClassName(CLASS_NAME.TODO_LIST);
 
+/**
+ * @returns {[HTMLElement]}
+ */
+const getTodo = () => getElementsByClassName(CLASS_NAME.TODO);
+
 export function dispatchSwitchMode(mode) {
     getTodoList().forEach(ele => ele.dispatchEvent(EVENT.SWITCH_MODE(mode)));
 }
@@ -29,6 +34,10 @@ export function dispatchSwitchMode(mode) {
  */
 export function dispatchNormalModeEvent(e) {
     switch (e.key) {
+        case ' ':
+            getTodo().forEach(ele => ele.dispatchEvent(EVENT.CHECK_TODO));
+            e.preventDefault();
+            break;
         case 'i':
             window.dispatchEvent(EVENT.SWITCH_MODE(MODE.INSERT));
             e.preventDefault();
