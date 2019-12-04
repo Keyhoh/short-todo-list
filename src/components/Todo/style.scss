@@ -4,6 +4,10 @@
   color: $font-base;
   font-size: 16px;
   pointer-events: none;
+  &.checked{
+    text-decoration: line-through solid $font-base;
+    font-weight: lighter ;
+  }
   &.focused {
     background-color: $emphasis;
   }
