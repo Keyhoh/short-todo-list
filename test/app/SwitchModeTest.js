@@ -40,7 +40,7 @@ describe('Switch mode', function () {
         });
     });
 
-    [].filter.call(allKey, s => !'i'.includes(s)).forEach(async s => {
+    allKey.forEach(async s => {
         it(`mode does not switch from insert mode by ${s}`, async () => {
             await this.app.client.keys('i');
             assert.equal(await getMode(), 'insert');
@@ -59,14 +59,14 @@ describe('Switch mode', function () {
         assert.equal(await getMode(), 'insert');
     });
 
-    it('switch mode to normal mode by <C-[>', async ()=>{
+    it('switch mode to normal mode by <C-[>', async () => {
         await this.app.client.keys('i');
         assert.equal(await getMode(), 'insert');
         await this.app.client.keys(['Control', '[']);
         assert.equal(await getMode(), 'normal');
     });
 
-    it('switch mode to normal mode by Escape', async ()=>{
+    it('switch mode to normal mode by Escape', async () => {
         await this.app.client.keys('i');
         assert.equal(await getMode(), 'insert');
         await this.app.client.keys('Escape');
