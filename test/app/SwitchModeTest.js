@@ -41,6 +41,20 @@ describe('Switch mode', function () {
     });
 
     [].forEach.call(allKey, async s => {
+        it(`mode does not switch from normal mode by <C-${s}>`, async () => {
+            await this.app.client.keys(['Control', s]);
+            assert.equal(await getMode(), 'normal');
+        });
+    });
+
+    [].forEach.call(allKey, async s => {
+        it(`mode does not switch from normal mode by <A-${s}>`, async () => {
+            await this.app.client.keys(['Alt', s]);
+            assert.equal(await getMode(), 'normal');
+        });
+    });
+
+    [].forEach.call(allKey, async s => {
         it(`mode does not switch from insert mode by ${s}`, async () => {
             await this.app.client.keys('i');
             assert.equal(await getMode(), 'insert');
@@ -54,15 +68,6 @@ describe('Switch mode', function () {
             await this.app.client.keys('i');
             assert.equal(await getMode(), 'insert');
             await this.app.client.keys(['Control', s]);
-            assert.equal(await getMode(), 'insert');
-        });
-    });
-
-    [].forEach.call(allKey, async s => {
-        it(`mode does not switch from insert mode by <S-${s}>`, async () => {
-            await this.app.client.keys('i');
-            assert.equal(await getMode(), 'insert');
-            await this.app.client.keys(['Shift', s]);
             assert.equal(await getMode(), 'insert');
         });
     });
