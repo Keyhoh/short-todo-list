@@ -1,5 +1,10 @@
+import MODE from "./MODE";
+
 export default {
-    "SWITCH_MODE": new Event('switchMode'),
+    /** @param mode {MODE} */
+    "SWITCH_MODE": mode => new CustomEvent('switchMode', { detail: mode }),
+    "SWITCH_TO_NORMAL_MODE": new Event('switchToNormalMode'),
+    "SWITCH_TO_INSERT_MODE": new Event('switchToInsertMode'),
     "GOTO_TOP": new Event('gotoTop'),
     "GOTO_END": new Event('gotoEnd'),
     "FOCUS_NEXT_LIST": new Event('focusNextList'),

@@ -1,6 +1,7 @@
 import React from 'react';
 import Todo from "../Todo/TodoComponent";
 import "./style.scss";
+import MODE from '../../events/MODE';
 
 /**
  * props:
@@ -11,12 +12,13 @@ import "./style.scss";
 export default class List extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { focusedTodo: 0, selectedTodo: null };
+        this.state = { focusedTodo: 0, enteringTodo: null, selectedTodo: null };
         window.addEventListener('gotoTop', () => this.goTop());
         window.addEventListener('gotoEnd', () => this.goBottom());
         window.addEventListener('selectTodo', () => this.select());
         window.addEventListener('focusNextTodo', () => this.focusNext());
         window.addEventListener('focusPrevTodo', () => this.focusPrev());
+        window.addEventListener('switchMode', () => this.switchMode());
     }
 
     goTop() {
@@ -54,6 +56,14 @@ export default class List extends React.Component {
         }
     }
 
+    switchMode() {
+        if (this.props.focused && App.mode === MODE.INSERT) {
+            this.setState({ enteringTodo: this.state.focusedTodo });
+        } else {
+            this.setState({ enteringTodo: null });
+        }
+    }
+
     getTodoArray() {
         return this.props.list.map(
             (todo, idx) => <Todo
@@ -61,7 +71,7 @@ export default class List extends React.Component {
                 todo={todo}
                 focused={this.state.focusedTodo === idx}
                 selected={this.state.selectedTodo === todo.id}
-            />
+                entering={this.props.focused && this.state.enteringTodo === idx} />
         );
     }
 

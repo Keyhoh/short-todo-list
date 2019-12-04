@@ -10,7 +10,11 @@
     color: $font-emphasis;
     font-weight: bolder;
   }
+  &:not(.entering) {
+    pointer-events: none;
+  }
   > input {
+    width: 100%;
     color: inherit;
     font-size: inherit;
     font-family: inherit;

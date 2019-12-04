@@ -4,12 +4,10 @@ import Todo from "./Todo";
 import ERROR_CODE from "../ERROR_CODE";
 import Operation from '../Operation';
 
-const mkdir = () => { if (!fs.existsSync(global.App.dataDir)) fs.mkdirSync(App.dataDir); };
 const getFilePath = id => path.resolve(App.dataDir, id + '\.json');
 
 const Store = {
       save: async todo => {
-            mkdir();
             await fs.writeJson(getFilePath(todo.id), todo.toJson());
       },
 

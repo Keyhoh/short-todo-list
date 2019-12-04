@@ -9,8 +9,8 @@ import MODE from "./MODE";
 export function dispatchNormalModeEvent(e) {
     switch (e.key) {
         case 'i':
-            App.mode = MODE.INSERT;
-            window.dispatchEvent(EVENT.SWITCH_MODE);
+            window.dispatchEvent(EVENT.SWITCH_MODE(MODE.INSERT));
+            e.preventDefault();
             break;
         case 'h':
             window.dispatchEvent(EVENT.FOCUS_PREV_LIST);
@@ -58,6 +58,23 @@ export function dispatchNormalModeEvent(e) {
             break;
         case 'z':
             // TODO: position current todo
+            break;
+        default:
+            break;
+    }
+}
+
+/**
+ * インサートモード時のイベントリスナー
+ * 
+ * @param e {KeyboardEvent}
+ */
+export function dispatchInsertModeEvent(e) {
+    switch (e.key) {
+        case '[':
+            if (!e.ctrlKey) break;
+        case 'Escape':
+            window.dispatchEvent(EVENT.SWITCH_MODE(MODE.NORMAL));
             break;
         default:
             break;
