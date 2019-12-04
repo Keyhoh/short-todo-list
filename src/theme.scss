@@ -1,11 +1,16 @@
-$base:#232931;
+$base: #232931;
 $emphasis: #393e46;
-$font-base:#eeeeee;
-$font-emphasis:#41cca3;
-$warn-base:#ce3918;
-$warn-emphasis:#ce3918;
+$font-base: #eeeeee;
+$font-emphasis: #41cca3;
+$warn-base: #ce3918;
+$warn-emphasis: #ce3918;
 
 html {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    pointer-events: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+  pointer-events: none;
+}
+
+* {
+  user-select: none;
 }
