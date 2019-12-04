@@ -3,6 +3,7 @@
 .todo {
   color: $font-base;
   font-size: 16px;
+  pointer-events: none;
   &.focused {
     background-color: $emphasis;
   }
@@ -11,13 +12,12 @@
     font-weight: bolder;
   }
   &:not(.entering) {
-    pointer-events: none;
-  }
-  > p {
-    display: inline;
-  }
-  > input{
-    display: none;
+    > p {
+      display: inline;
+    }
+    > input {
+      display: none;
+    }
   }
   &.entering {
     > p {
