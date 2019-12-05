@@ -37,10 +37,10 @@ export function dispatchNormalModeEvent(e) {
     switch (e.key) {
         case ' ':
             getFocusedTodo().dispatchEvent(EVENT.CHECK_TODO);
+            // スクロールを防ぐ
             e.preventDefault();
             break;
         case 'd':
-            // window.dispatchEvent(EVENT.DISCARD_TODO)
             getFocusedTodo().dispatchEvent(EVENT.DISCARD_TODO);
             break;
         case 'D':
@@ -59,6 +59,7 @@ export function dispatchNormalModeEvent(e) {
             break;
         case 'i':
             window.dispatchEvent(EVENT.SWITCH_MODE(MODE.INSERT));
+            // iが入力されることを防ぐ
             e.preventDefault();
             break;
         case 'j':

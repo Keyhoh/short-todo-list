@@ -42,15 +42,20 @@ export default class App extends React.Component {
     }
 
     didDiscard(todoId) {
-        let indexList = this.state.indexList;
-        const targetTodo = indexList.find(todo => todo.id === todoId);
-        if (!_.isNil(targetTodo)) {
-            const targetIdx = indexList.indexOf(targetTodo);
-            let discardedList = this.state.discardedList;
-            discardedList.push(indexList[targetIdx]);
-            indexList.splice(targetIdx, 1);
-            this.setState({ indexList: indexList, discardedList: discardedList });
+        const fullList = this.props.todoList;
+        const targetTodo = fullList.find(todo => todo.id === todoId);
+        const swap = (target, other, idx) => {
+            other.push(target[idx]);
+            target.splice(idx, 1);
         }
+        let indexList = this.state.indexList;
+        let discardedList = this.state.discardedList;
+        if (indexList.includes(targetTodo)) {
+            swap(indexList, discardedList, indexList.indexOf(targetTodo));
+        } else if (discardedList.includes(targetTodo)) {
+            swap(discardedList, indexList, discardedList.indexOf(targetTodo));
+        }
+        this.setState({ indexList: indexList, discardedList: discardedList });
     }
 
     render() {

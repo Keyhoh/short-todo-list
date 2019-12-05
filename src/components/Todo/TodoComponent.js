@@ -47,9 +47,11 @@ export default class Todo extends React.Component {
     discard() {
         if (!this.props.todo.discarded) {
             Operation.discard(this.props.todo);
-            Operation.save(this.props.todo);
-            this.props.didDiscard(this.props.todo.id);
+        } else {
+            Operation.pullUp(this.props.todo);
         }
+        Operation.save(this.props.todo);
+        this.props.didDiscard(this.props.todo.id);
     }
 
     exit() {
