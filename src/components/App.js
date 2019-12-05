@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import List from "./List/ListComponent";
 import "./style.scss";
-import CLASS_NAME from './CLASS_NAME';
+import index from 'uuid-random';
 
 /**
  * state:
@@ -42,20 +42,25 @@ export default class App extends React.Component {
     }
 
     didDiscard(todoId) {
-        const fullList = this.props.todoList;
-        const targetTodo = fullList.find(todo => todo.id === todoId);
-        const swap = (target, other, idx) => {
-            other.push(target[idx]);
-            target.splice(idx, 1);
-        }
         let indexList = this.state.indexList;
-        let discardedList = this.state.discardedList;
-        if (indexList.includes(targetTodo)) {
-            swap(indexList, discardedList, indexList.indexOf(targetTodo));
-        } else if (discardedList.includes(targetTodo)) {
-            swap(discardedList, indexList, discardedList.indexOf(targetTodo));
+        const targetTodo = indexList.find(todo => todo.id === todoId);
+        if (!_.isUndefined(targetTodo)) {
+            let discardedList = this.state.discardedList;
+            discardedList.push(targetTodo);
+            indexList.splice(indexList.indexOf(targetTodo), 1);
+            this.setState({ indexList: indexList, discardedList: discardedList });
         }
-        this.setState({ indexList: indexList, discardedList: discardedList });
+    }
+
+    didPullUp(todoId) {
+        let discardedList = this.state.discardedList;
+        const targetTodo = discardedList.find(todo => todo.id === todoId);
+        if (!_.isUndefined(targetTodo)) {
+            let indexList = this.state.indexList;
+            indexList.push(targetTodo);
+            discardedList.splice(discardedList.indexOf(targetTodo), 1);
+            this.setState({ indexList: indexList, discardedList: discardedList });
+        }
     }
 
     render() {
@@ -66,6 +71,7 @@ export default class App extends React.Component {
                 focused={this.state.focusedList === 'index_list'}
                 list={this.state.indexList}
                 didDiscard={todoId => this.didDiscard(todoId)}
+                didPullUp={todoId => this.didPullUp(todoId)}
             />
             <List
                 key='discarded_list'
@@ -73,6 +79,7 @@ export default class App extends React.Component {
                 focused={this.state.focusedList === 'discarded_list'}
                 list={this.state.discardedList}
                 didDiscard={todoId => this.didDiscard(todoId)}
+                didPullUp={todoId => this.didPullUp(todoId)}
             />
         </div>
     }

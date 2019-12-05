@@ -85,6 +85,7 @@ export default class List extends React.Component {
                 selected={this.state.selectedTodo === todo.id}
                 entering={this.props.focused && this.state.enteringTodo === idx}
                 didDiscard={todoId => this.props.didDiscard(todoId)}
+                didPullUp={todoId => this.props.didPullUp(todoId)}
             />
         );
     }

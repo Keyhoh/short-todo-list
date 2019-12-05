@@ -86,6 +86,9 @@ export function dispatchNormalModeEvent(e) {
         case 'O':
             // TODO: create todo above
             break;
+        case 'p':
+            getFocusedTodo().dispatchEvent(EVENT.PULL_UP_TODO);
+            break;
         case 'y':
             // TODO: copy todo
             break;

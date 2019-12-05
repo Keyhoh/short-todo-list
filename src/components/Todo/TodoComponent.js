@@ -18,12 +18,14 @@ export default class Todo extends React.Component {
     componentDidMount() {
         this.element.addEventListener('checkTodo', () => this.check());
         this.element.addEventListener('discardTodo', () => this.discard());
+        this.element.addEventListener('pullUpTodo', () => this.pullUp());
         this.element.addEventListener('switchToNormalMode', () => this.exit());
     }
 
     componentWillUnmount() {
         this.element.removeEventListener('checkTodo', () => this.check());
         this.element.removeEventListener('discardTodo', () => this.discard());
+        this.element.removeEventListener('pullUpTodo', () => this.pullUp());
         this.element.removeEventListener('switchToNormalMode', () => this.exit());
     }
 
@@ -38,20 +40,29 @@ export default class Todo extends React.Component {
 
     check() {
         if (!this.props.todo.discarded) {
-            Operation.toggleCheck(this.props.todo);
-            Operation.save(this.props.todo);
-            this.setState({ checked: !this.state.checked });
+            let todo = this.props.todo;
+            Operation.toggleCheck(todo);
+            Operation.save(todo);
+            this.setState({ checked: todo.checked });
         }
     }
 
     discard() {
         if (!this.props.todo.discarded) {
-            Operation.discard(this.props.todo);
-        } else {
-            Operation.pullUp(this.props.todo);
+            let todo = this.props.todo;
+            Operation.discard(todo);
+            Operation.save(todo);
+            this.props.didDiscard(todo.id);
         }
-        Operation.save(this.props.todo);
-        this.props.didDiscard(this.props.todo.id);
+    }
+
+    pullUp() {
+        if (this.props.todo.discarded) {
+            let todo = this.props.todo;
+            Operation.pullUp(todo);
+            Operation.save(todo);
+            this.props.didPullUp(todo.id);
+        }
     }
 
     exit() {
