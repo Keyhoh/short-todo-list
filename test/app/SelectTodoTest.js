@@ -11,9 +11,9 @@ describe('Select todo', function () {
         fs.copySync(path.resolve(__dirname, 'data'), path.resolve(__dirname, '..', '..', 'node_modules', 'electron', 'dist', 'resources', 'data'));
     });
 
-    // this.afterAll(() => {
-    //     fs.removeSync(path.resolve(__dirname, '..', '..', 'node_modules', 'electron', 'dist', 'resources', 'data'));
-    // });
+    this.afterAll(() => {
+        fs.removeSync(path.resolve(__dirname, '..', '..', 'node_modules', 'electron', 'dist', 'resources', 'data'));
+    });
 
     this.beforeEach(() => {
         this.app = new Application({
