@@ -2,6 +2,7 @@ import MODE from "./MODE";
 
 export default {
     "CHECK_TODO": new Event('checkTodo'),
+    "DISCARD_TODO": new Event('discardTodo', { bubbles: true }),
     /** @param mode {MODE} */
     "SWITCH_MODE": mode => new CustomEvent('switchMode', { detail: mode }),
     "SWITCH_TO_NORMAL_MODE": new Event('switchToNormalMode'),

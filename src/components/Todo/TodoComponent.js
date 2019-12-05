@@ -17,7 +17,14 @@ export default class Todo extends React.Component {
 
     componentDidMount() {
         this.element.addEventListener('checkTodo', () => this.check());
+        this.element.addEventListener('discardTodo', () => this.discard());
         this.element.addEventListener('switchToNormalMode', () => this.exit());
+    }
+
+    componentWillUnmount() {
+        this.element.removeEventListener('checkTodo', () => this.check());
+        this.element.removeEventListener('discardTodo', () => this.discard());
+        this.element.removeEventListener('switchToNormalMode', () => this.exit());
     }
 
     componentDidUpdate() {
@@ -30,10 +37,18 @@ export default class Todo extends React.Component {
     }
 
     check() {
-        if (this.props.focused && !this.props.todo.discarded) {
+        if (!this.props.todo.discarded) {
             Operation.toggleCheck(this.props.todo);
             Operation.save(this.props.todo);
             this.setState({ checked: !this.state.checked });
+        }
+    }
+
+    discard() {
+        if (!this.props.todo.discarded) {
+            Operation.discard(this.props.todo);
+            Operation.save(this.props.todo);
+            this.props.didDiscard(this.props.todo.id);
         }
     }
 

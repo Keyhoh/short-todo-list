@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import List from "./List/ListComponent";
 import "./style.scss";
@@ -15,7 +16,9 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             focusedList: 'index_list',
+            /** @type {Array} */
             indexList: this.props.todoList.filter(todo => !todo.discarded),
+            /** @type {Array} */
             discardedList: this.props.todoList.filter(todo => todo.discarded)
         }
     }
@@ -38,19 +41,33 @@ export default class App extends React.Component {
         this.setState({ focusedList: 'discarded_list' });
     }
 
+    didDiscard(todoId) {
+        let indexList = this.state.indexList;
+        const targetTodo = indexList.find(todo => todo.id === todoId);
+        if (!_.isNil(targetTodo)) {
+            const targetIdx = indexList.indexOf(targetTodo);
+            let discardedList = this.state.discardedList;
+            discardedList.push(indexList[targetIdx]);
+            indexList.splice(targetIdx, 1);
+            this.setState({ indexList: indexList, discardedList: discardedList });
+        }
+    }
+
     render() {
-        return <div ref={ele => this.element = ele} className={CLASS_NAME.APP}>
+        return <div ref={ele => this.element = ele} id='app'>
             <List
                 key='index_list'
                 dataKey='index_list'
                 focused={this.state.focusedList === 'index_list'}
                 list={this.state.indexList}
+                didDiscard={todoId => this.didDiscard(todoId)}
             />
             <List
                 key='discarded_list'
                 dataKey='discarded_list'
                 focused={this.state.focusedList === 'discarded_list'}
                 list={this.state.discardedList}
+                didDiscard={todoId => this.didDiscard(todoId)}
             />
         </div>
     }

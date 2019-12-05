@@ -4,27 +4,27 @@ import CLASS_NAME from "../components/CLASS_NAME";
 
 /**
  * @param {string} class
- * @returns {[HTMLElement]}
+ * @returns {[Element]}
  */
-const getElementsByClassName = className => [...document.getElementsByClassName(className)];
+const querySelectorAll = selector => [...document.querySelectorAll(selector)];
 
 /**
- * @returns {HTMLElement}
+ * @returns {Element}
  */
-const getApp = () => getElementsByClassName(CLASS_NAME.APP)[0];
+const getApp = () => document.querySelector('#app');
 
 /**
- * @returns {[HTMLElement]}
+ * @returns {Element}
  */
-const getTodoList = () => getElementsByClassName(CLASS_NAME.TODO_LIST);
+const getFocusedTodoList = () => document.querySelector('.todo-list.focused');
 
 /**
- * @returns {[HTMLElement]}
+ * @returns {Element}
  */
-const getTodo = () => getElementsByClassName(CLASS_NAME.TODO);
+const getFocusedTodo = () => document.querySelector('.todo-list.focused .todo.focused');
 
 export function dispatchSwitchMode(mode) {
-    getTodoList().forEach(ele => ele.dispatchEvent(EVENT.SWITCH_MODE(mode)));
+    getFocusedTodoList().dispatchEvent(EVENT.SWITCH_MODE(mode));
 }
 
 /**
@@ -36,19 +36,20 @@ export function dispatchNormalModeEvent(e) {
     if (e.ctrlKey || e.altKey || e.metaKey) return;
     switch (e.key) {
         case ' ':
-            getTodo().forEach(ele => ele.dispatchEvent(EVENT.CHECK_TODO));
+            getFocusedTodo().dispatchEvent(EVENT.CHECK_TODO);
             e.preventDefault();
             break;
         case 'd':
-            // TODO: discard todo
+            // window.dispatchEvent(EVENT.DISCARD_TODO)
+            getFocusedTodo().dispatchEvent(EVENT.DISCARD_TODO);
             break;
         case 'D':
             break;
         case 'g':
-            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.GOTO_TOP));
+            getFocusedTodoList().dispatchEvent(EVENT.GOTO_TOP);
             break;
         case 'G':
-            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.GOTO_END));
+            getFocusedTodoList().dispatchEvent(EVENT.GOTO_END);
             break;
         case 'h':
             getApp().dispatchEvent(EVENT.FOCUS_PREV_LIST);
@@ -61,10 +62,10 @@ export function dispatchNormalModeEvent(e) {
             e.preventDefault();
             break;
         case 'j':
-            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.FOCUS_NEXT_TODO));
+            getFocusedTodoList().dispatchEvent(EVENT.FOCUS_NEXT_TODO);
             break;
         case 'k':
-            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.FOCUS_PREV_TODO));
+            getFocusedTodoList().dispatchEvent(EVENT.FOCUS_PREV_TODO);
             break;
         case 'l':
             getApp().dispatchEvent(EVENT.FOCUS_NEXT_LIST);
@@ -73,7 +74,7 @@ export function dispatchNormalModeEvent(e) {
             // TODO: goto last line on screen
             break;
         case 'm':
-            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.SELECT_TODO));
+            getFocusedTodoList().dispatchEvent(EVENT.SELECT_TODO);
             break;
         case 'M':
             // TODO: goto middle line on screen

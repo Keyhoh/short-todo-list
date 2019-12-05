@@ -38,31 +38,27 @@ export default class List extends React.Component {
     }
 
     goTop() {
-        if (!this.props.focused) return;
         this.setState({ focusedTodo: 0 });
     }
 
     goBottom() {
-        if (!this.props.focused) return;
         const len = this.props.list.length - 1;
         this.setState({ focusedTodo: len });
     }
 
     focusNext() {
-        if (!this.props.focused) return;
         const focused = this.state.focusedTodo;
         const len = this.props.list.length - 1;
         this.setState({ focusedTodo: Math.min(focused + 1, len) });
     }
 
     focusPrev() {
-        if (!this.props.focused) return;
         const focused = this.state.focusedTodo;
         this.setState({ focusedTodo: Math.max(focused - 1, 0) });
     }
 
     select() {
-        if (!(this.props.dataKey === 'index_list') || !this.props.focused) return;
+        if (this.props.dataKey !== 'index_list') return;
         const curr = this.state.selectedTodo;
         const next = this.props.list[this.state.focusedTodo].id;
         if (curr === next) {
@@ -73,7 +69,7 @@ export default class List extends React.Component {
     }
 
     switchMode() {
-        if (this.props.focused && App.mode === MODE.INSERT) {
+        if (App.mode === MODE.INSERT) {
             this.setState({ enteringTodo: this.state.focusedTodo });
         } else {
             this.setState({ enteringTodo: null });
@@ -87,7 +83,9 @@ export default class List extends React.Component {
                 todo={todo}
                 focused={this.state.focusedTodo === idx}
                 selected={this.state.selectedTodo === todo.id}
-                entering={this.props.focused && this.state.enteringTodo === idx} />
+                entering={this.props.focused && this.state.enteringTodo === idx}
+                didDiscard={todoId => this.props.didDiscard(todoId)}
+            />
         );
     }
 
