@@ -39,15 +39,26 @@ export function dispatchNormalModeEvent(e) {
             getTodo().forEach(ele => ele.dispatchEvent(EVENT.CHECK_TODO));
             e.preventDefault();
             break;
-        case 'i':
-            window.dispatchEvent(EVENT.SWITCH_MODE(MODE.INSERT));
-            e.preventDefault();
+        case 'd':
+            // TODO: discard todo
+            break;
+        case 'D':
+            break;
+        case 'g':
+            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.GOTO_TOP));
+            break;
+        case 'G':
+            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.GOTO_END));
             break;
         case 'h':
             getApp().dispatchEvent(EVENT.FOCUS_PREV_LIST);
             break;
         case 'H':
             // TODO: goto first line on screen
+            break;
+        case 'i':
+            window.dispatchEvent(EVENT.SWITCH_MODE(MODE.INSERT));
+            e.preventDefault();
             break;
         case 'j':
             getTodoList().forEach(ele => ele.dispatchEvent(EVENT.FOCUS_NEXT_TODO));
@@ -61,12 +72,6 @@ export function dispatchNormalModeEvent(e) {
         case 'L':
             // TODO: goto last line on screen
             break;
-        case 'g':
-            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.GOTO_TOP));
-            break;
-        case 'G':
-            getTodoList().forEach(ele => ele.dispatchEvent(EVENT.GOTO_END));
-            break;
         case 'm':
             getTodoList().forEach(ele => ele.dispatchEvent(EVENT.SELECT_TODO));
             break;
@@ -78,11 +83,6 @@ export function dispatchNormalModeEvent(e) {
             break;
         case 'O':
             // TODO: create todo above
-            break;
-        case 'd':
-            // TODO: discard todo
-            break;
-        case 'D':
             break;
         case 'y':
             // TODO: copy todo

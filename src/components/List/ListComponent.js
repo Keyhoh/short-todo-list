@@ -62,7 +62,7 @@ export default class List extends React.Component {
     }
 
     select() {
-        if (!this.props.focused) return;
+        if (!(this.props.dataKey === 'index_list') || !this.props.focused) return;
         const curr = this.state.selectedTodo;
         const next = this.props.list[this.state.focusedTodo].id;
         if (curr === next) {
