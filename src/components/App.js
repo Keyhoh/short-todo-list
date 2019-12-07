@@ -2,7 +2,9 @@ import _ from 'lodash';
 import React from 'react';
 import List from "./List/ListComponent";
 import "./style.scss";
-import index from 'uuid-random';
+import EVENT from "../events/EVENT";
+import MODE from "../events/MODE";
+import Operation from "../operation/Operation";
 
 /**
  * state:
@@ -24,11 +26,13 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
+        this.element.addEventListener('createTodo', () => this.createTodo());
         this.element.addEventListener('focusNextList', () => this.focusDiscardedList());
         this.element.addEventListener('focusPrevList', () => this.focusIndexList());
     }
 
     componentWillUnmount() {
+        this.element.removeEventListener('createTodo', () => this.createTodo());
         this.element.removeEventListener('focusNextList', () => this.focusDiscardedList());
         this.element.removeEventListener('focusPrevList', () => this.focusIndexList());
     }
@@ -39,6 +43,18 @@ export default class App extends React.Component {
 
     focusDiscardedList() {
         this.setState({ focusedList: 'discarded_list' });
+    }
+
+    createTodo() {
+        if (this.state.focusedList === 'index_list') {
+            const todo = Operation.create();
+            let indexList = this.state.indexList;
+            indexList.push(todo);
+            this.setState({ indexList: indexList });
+            document.querySelector('.todo-list.focused').dispatchEvent(EVENT.GOTO_END);
+            console.log(EVENT.GOTO_END.eventPhase)
+            window.dispatchEvent(EVENT.SWITCH_MODE(MODE.INSERT));
+        }
     }
 
     didDiscard(todoId) {

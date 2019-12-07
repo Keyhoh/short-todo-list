@@ -1,12 +1,5 @@
 import EVENT from "./EVENT";
 import MODE from "./MODE";
-import CLASS_NAME from "../components/CLASS_NAME";
-
-/**
- * @param {string} class
- * @returns {[Element]}
- */
-const querySelectorAll = selector => [...document.querySelectorAll(selector)];
 
 /**
  * @returns {Element}
@@ -23,8 +16,17 @@ const getFocusedTodoList = () => document.querySelector('.todo-list.focused');
  */
 const getFocusedTodo = () => document.querySelector('.todo-list.focused .todo.focused');
 
+/**
+ * @returns {Element} 
+ */
+const getEnteringTodo = () => document.querySelector('.entering');
+
 export function dispatchSwitchMode(mode) {
-    getFocusedTodoList().dispatchEvent(EVENT.SWITCH_MODE(mode));
+    if (mode === MODE.NORMAL) {
+        getEnteringTodo().dispatchEvent(EVENT.SWITCH_TO_NORMAL_MODE);
+    } else if (mode === MODE.INSERT) {
+        getFocusedTodoList().dispatchEvent(EVENT.SWITCH_TO_INSERT_MODE);
+    }
 }
 
 /**
@@ -79,6 +81,10 @@ export function dispatchNormalModeEvent(e) {
             break;
         case 'M':
             // TODO: goto middle line on screen
+            break;
+        case 'n':
+            getApp().dispatchEvent(EVENT.CREATE_TODO);
+            e.preventDefault();
             break;
         case 'o':
             // TODO: create todo below

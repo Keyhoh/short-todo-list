@@ -26,6 +26,8 @@ export default class List extends React.Component {
         this.element.addEventListener('focusNextTodo', () => this.focusNext());
         this.element.addEventListener('focusPrevTodo', () => this.focusPrev());
         this.element.addEventListener('switchMode', () => this.switchMode());
+        this.element.addEventListener('switchToNormalMode', () => this.switchToNormalMode());
+        this.element.addEventListener('switchToInsertMode', () => this.switchToInsertMode());
     }
 
     componentWillUnmount() {
@@ -35,6 +37,8 @@ export default class List extends React.Component {
         this.element.removeEventListener('focusNextTodo', () => this.focusNext());
         this.element.removeEventListener('focusPrevTodo', () => this.focusPrev());
         this.element.removeEventListener('switchMode', () => this.switchMode());
+        this.element.removeEventListener('switchToNormalMode', () => this.switchToNormalMode());
+        this.element.removeEventListener('switchToInsertMode', () => this.switchToInsertMode());
     }
 
     goTop() {
@@ -68,12 +72,12 @@ export default class List extends React.Component {
         }
     }
 
-    switchMode() {
-        if (App.mode === MODE.INSERT) {
-            this.setState({ enteringTodo: this.state.focusedTodo });
-        } else {
-            this.setState({ enteringTodo: null });
-        }
+    switchToNormalMode() {
+        this.setState({ enteringTodo: null });
+    }
+
+    switchToInsertMode() {
+        this.setState({ enteringTodo: this.state.focusedTodo });
     }
 
     getTodoArray() {

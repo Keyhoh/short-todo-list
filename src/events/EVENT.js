@@ -1,12 +1,13 @@
 import MODE from "./MODE";
 
 export default {
+    "CREATE_TODO": new Event('createTodo'),
     "CHECK_TODO": new Event('checkTodo'),
     "DISCARD_TODO": new Event('discardTodo'),
     "PULL_UP_TODO": new Event('pullUpTodo'),
     /** @param mode {MODE} */
     "SWITCH_MODE": mode => new CustomEvent('switchMode', { detail: mode }),
-    "SWITCH_TO_NORMAL_MODE": new Event('switchToNormalMode'),
+    "SWITCH_TO_NORMAL_MODE": new Event('switchToNormalMode', { bubbles: true }),
     "SWITCH_TO_INSERT_MODE": new Event('switchToInsertMode'),
     "GOTO_TOP": new Event('gotoTop'),
     "GOTO_END": new Event('gotoEnd'),
