@@ -4,6 +4,9 @@ const path = require('path');
 const fs = require('fs-extra');
 const assert = require('assert');
 
+/**
+ * test for i, <C-[>, Esc key
+ */
 describe('Switch mode', function () {
     this.timeout(10000);
 

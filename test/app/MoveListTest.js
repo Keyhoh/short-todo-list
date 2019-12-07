@@ -4,6 +4,9 @@ const path = require('path');
 const fs = require('fs-extra');
 const assert = require('assert');
 
+/**
+ * test for h, l key
+ */
 describe('Key to move list', function () {
     this.timeout(10000);
 
