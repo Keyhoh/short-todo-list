@@ -5,6 +5,7 @@ export default {
     "CHECK_TODO": new Event('checkTodo'),
     "DISCARD_TODO": new Event('discardTodo'),
     "PULL_UP_TODO": new Event('pullUpTodo'),
+    "DELETE_TODO": new Event('deleteTodo'),
     /** @param mode {MODE} */
     "SWITCH_MODE": mode => new CustomEvent('switchMode', { detail: mode }),
     "SWITCH_TO_NORMAL_MODE": new Event('switchToNormalMode', { bubbles: true }),

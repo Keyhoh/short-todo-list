@@ -42,14 +42,18 @@ export default class App extends React.Component {
         this.setState({ focusedList: 'discarded_list' });
     }
 
-    splice(start, todo) {
+    splice(start, deleteCount, todo) {
         if (this.state.focusedList === 'index_list') {
             let indexList = this.state.indexList;
-            indexList.splice(start, 0, todo);
+            indexList.splice(start, deleteCount, todo);
             this.setState({ indexList: indexList });
             // TODO: ACTIONを実装した後、対応するACTIONで以下を置き換える。
             document.querySelector('.todo-list.focused').dispatchEvent(EVENT.GOTO_END);
             window.dispatchEvent(EVENT.SWITCH_MODE(MODE.INSERT));
+        } else if (this.state.focusedList === 'discarded_list') {
+            let discardedList = this.state.discardedList;
+            discardedList.splice(start, deleteCount);
+            this.setState({ discardedList: discardedList });
         }
     }
 
@@ -84,7 +88,7 @@ export default class App extends React.Component {
                 list={this.state.indexList}
                 didDiscard={todoId => this.didDiscard(todoId)}
                 didPullUp={todoId => this.didPullUp(todoId)}
-                splice={(start, todo) => this.splice(start, todo)}
+                splice={(start, deleteCount, todo) => this.splice(start, deleteCount, todo)}
             />
             <List
                 key='discarded_list'
@@ -93,7 +97,7 @@ export default class App extends React.Component {
                 list={this.state.discardedList}
                 didDiscard={todoId => this.didDiscard(todoId)}
                 didPullUp={todoId => this.didPullUp(todoId)}
-                splice={(start, todo) => this.splice(start, todo)}
+                splice={(start, deleteCount, todo) => this.splice(start, deleteCount, todo)}
             />
         </div>
     }

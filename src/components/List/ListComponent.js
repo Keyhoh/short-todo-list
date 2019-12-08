@@ -21,6 +21,7 @@ export default class List extends React.Component {
 
     componentDidMount() {
         this.element.addEventListener('createTodo', () => this.create());
+        this.element.addEventListener('deleteTodo', () => this.delete());
         this.element.addEventListener('gotoTop', () => this.goTop());
         this.element.addEventListener('gotoEnd', () => this.goBottom());
         this.element.addEventListener('selectTodo', () => this.select());
@@ -33,6 +34,7 @@ export default class List extends React.Component {
 
     componentWillUnmount() {
         this.element.removeEventListener('createTodo', () => this.create());
+        this.element.removeEventListener('deleteTodo', () => this.delete());
         this.element.removeEventListener('gotoTop', () => this.goTop());
         this.element.removeEventListener('gotoEnd', () => this.goBottom());
         this.element.removeEventListener('selectTodo', () => this.select());
@@ -80,9 +82,14 @@ export default class List extends React.Component {
 
     create() {
         const todo = Operation.create();
-        this.props.splice(this.props.list.length, todo);
+        this.props.splice(this.props.list.length, 0, todo);
     }
 
+    delete() {
+        const todo = this.props.list[this.state.focusedTodo];
+        Operation.delete(todo.id);
+        this.props.splice(this.state.focusedTodo, 1, todo);
+    }
     switchToInsertMode() {
         this.setState({ enteringTodo: this.state.focusedTodo });
     }

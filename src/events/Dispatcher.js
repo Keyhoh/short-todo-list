@@ -46,6 +46,7 @@ export function dispatchNormalModeEvent(e) {
             getFocusedTodo().dispatchEvent(EVENT.DISCARD_TODO);
             break;
         case 'D':
+            getFocusedTodoList().dispatchEvent(EVENT.DELETE_TODO);
             break;
         case 'g':
             getFocusedTodoList().dispatchEvent(EVENT.GOTO_TOP);
