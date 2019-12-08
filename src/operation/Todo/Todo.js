@@ -10,7 +10,7 @@ export default class Todo {
     _checked = false;
     _discarded = false;
 
-    constructor(title = 'title', priority = 1) {
+    constructor(title, priority) {
         this._id = Id.new();
         this._title = new Title(title);
         this._priority = Priority.of(priority);
@@ -69,7 +69,7 @@ export default class Todo {
     }
 
     toJson() {
-        const temp=  {
+        const temp = {
             id: this.id,
             title: this.title,
             priority: this.priority,

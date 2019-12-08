@@ -2,55 +2,56 @@ import _ from 'lodash';
 import Todo from "./Todo/Todo";
 import Store from "./Todo/Store";
 import ERROR_CODE from "./ERROR_CODE";
-export default class Operation {
-    static create(title, priority) {
-        return new Todo(title, priority);
-    }
 
-    static updateTitle(todo, title) {
+export default {
+    create: (title, priority) => {
+        return new Todo(title, priority);
+    },
+
+    updateTitle: (todo, title) => {
         todo.title = title;
         return todo;
-    }
+    },
 
-    static upPriority(todo) {
+    upPriority: todo => {
         todo.up();
-    }
+    },
 
-    static downPriority(todo) {
+    downPriority: todo => {
         todo.down();
-    }
+    },
 
-    static toggleCheck(todo) {
+    toggleCheck: todo => {
         todo.toggleCheck();
-    }
+    },
 
-    static discard(todo) {
+    discard: todo => {
         todo.discard();
-    }
+    },
 
-    static async discardAll(){
+    discardAll: async () => {
         await Store.discardAll();
-    }
+    },
 
-    static pullUp(todo) {
+    pullUp: todo => {
         todo.pullUp();
-    }
+    },
 
-    static async save(todo) {
+    save: async todo => {
         await Store.save(todo);
-    }
+    },
 
-    static find(id) {
+    find: id => {
         if (_.isNil(id) || _.toLength(id)) throw new Error(ERROR_CODE.ILLEGAL_TODO_ID);
         return Store.find(id);
-    }
+    },
 
-    static async delete(id) {
+    delete: async id => {
         if (_.isNil(id) || _.toLength(id)) throw new Error(ERROR_CODE.ILLEGAL_TODO_ID);
         await Store.delete(id);
-    }
+    },
 
-    static async deleteAll(){
+    deleteAll: async () => {
         await Store.deleteAll();
     }
 }

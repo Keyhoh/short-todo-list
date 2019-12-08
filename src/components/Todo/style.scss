@@ -1,0 +1,47 @@
+@import "../../theme.scss";
+
+.todo {
+  color: $font-base;
+  height: 24px;
+  font-size: 16px;
+  pointer-events: none;
+  &.checked{
+    text-decoration: line-through solid $font-base;
+    font-weight: lighter ;
+  }
+  &.focused {
+    background-color: $emphasis;
+  }
+  &.selected {
+    color: $font-emphasis;
+    font-weight: bolder;
+  }
+  &:not(.entering) {
+    > p {
+      display: inline;
+    }
+    > input {
+      display: none;
+    }
+  }
+  &.entering {
+    > p {
+      display: none;
+    }
+    > input {
+      display: inline;
+    }
+  }
+  > input {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 100%;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    background-color: inherit;
+    border: none;
+    outline: none;
+  }
+}

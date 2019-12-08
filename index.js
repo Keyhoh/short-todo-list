@@ -1,10 +1,12 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 
 // ウインドウオブジェクトのグローバル参照を保持してください。さもないと、そのウインドウは
 // JavaScript オブジェクトがガベージコレクションを行った時に自動的に閉じられます。
 let win
 
-function createWindow () {
+function createWindow() {
+  Menu.setApplicationMenu(null);
+
   // browser window を生成する
   win = new BrowserWindow({
     width: 800,
@@ -16,6 +18,9 @@ function createWindow () {
 
   // そしてこのアプリの index.html をロード
   win.loadFile('index.html')
+
+  // テスト実行時、開発者ツールが開いているとテストが完了しない
+  // win.webContents.openDevTools();
 
   // ウィンドウが閉じられた時に発火
   win.on('closed', () => {
@@ -52,3 +57,9 @@ app.on('activate', () => {
 // このファイル内には、
 // 残りのアプリ固有のメインプロセスコードを含めることができます。 
 // 別々のファイルに分割してここで require することもできます。
+
+const path = require('path')
+
+ipcMain.on('get-data-dir', event => {
+  event.returnValue = path.resolve(app.getPath('module'), '..', 'resources', 'data');
+})

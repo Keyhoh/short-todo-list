@@ -1,48 +1,47 @@
 import fs from 'fs-extra';
+import path from 'path';
 import Todo from "./Todo";
 import ERROR_CODE from "../ERROR_CODE";
 import Operation from '../Operation';
 
-const mkdir = () => { if (!fs.existsSync(global.App.dataDir)) fs.mkdirSync(global.App.dataDir); };
-const getFilePath = id => `${global.App.dataDir}/${id}.json`;
+const getFilePath = id => path.resolve(App.dataDir, id + '\.json');
 
-export default class Store {
-      static async save(todo) {
-            mkdir();
+const Store = {
+      save: async todo => {
             await fs.writeJson(getFilePath(todo.id), todo.toJson());
-      }
+      },
 
-      static find(id) {
+      find: id => {
             try {
                   return Todo.reconstruct(fs.readJsonSync(getFilePath(id)));
             } catch (error) {
                   throw new Error(ERROR_CODE.NOT_FOUND_TODO);
             }
-      }
+      },
 
-      static async delete(id) {
+      delete: async id => {
             const error = new Error(ERROR_CODE.CANNOT_DELETE_TODO);
             if (Store.find(id).discarded) {
                   await fs.remove(getFilePath(id));
             } else {
                   throw error;
             }
-      }
+      },
 
-      static async deleteAll() {
+      deleteAll: async () => {
             await Promise.all(
                   Store.findAll().filter(todo => todo.discarded)
                         .map(async todo => await Store.delete(todo.id))
             );
-      }
+      },
 
-      static findAll() {
+      findAll: () => {
             return fs.readdirSync(global.App.dataDir)
                   .map(f => fs.readJSONSync(`${global.App.dataDir}/${f}`))
                   .map(Todo.reconstruct);
-      }
+      },
 
-      static async discardAll() {
+      discardAll: async () => {
             await Promise.all(
                   Store.findAll().filter(todo => todo.checked)
                         .map(todo => {
@@ -52,4 +51,6 @@ export default class Store {
                         .map(async todo => await Store.save(todo))
             );
       }
-}
+};
+
+export default Store;

@@ -1,10 +1,11 @@
 import assert from 'assert';
-import ERROR_CODE from "../../src/model/ERROR_CODE";
-import Operation from '../../src/model/Operation';
+import Operation from '../../src/operation/Operation';
 import fs from 'fs-extra';
+import path from 'path';
 
 global.App = global.App || {};
-global.App.dataDir = `${__dirname}/temp`;
+global.App.dataDir = path.resolve(__dirname, 'temp');
+fs.existsSync(global.App.dataDir) || fs.mkdirSync(global.App.dataDir);
 
 describe('Batch operation test', function () {
     describe('Discard all checked todo', function () {
