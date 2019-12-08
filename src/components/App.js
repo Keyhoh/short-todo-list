@@ -4,7 +4,6 @@ import List from "./List/ListComponent";
 import "./style.scss";
 import EVENT from "../events/EVENT";
 import MODE from "../events/MODE";
-import Operation from "../operation/Operation";
 
 /**
  * state:
@@ -26,13 +25,11 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        this.element.addEventListener('createTodo', () => this.createTodo());
         this.element.addEventListener('focusNextList', () => this.focusDiscardedList());
         this.element.addEventListener('focusPrevList', () => this.focusIndexList());
     }
 
     componentWillUnmount() {
-        this.element.removeEventListener('createTodo', () => this.createTodo());
         this.element.removeEventListener('focusNextList', () => this.focusDiscardedList());
         this.element.removeEventListener('focusPrevList', () => this.focusIndexList());
     }
@@ -45,14 +42,13 @@ export default class App extends React.Component {
         this.setState({ focusedList: 'discarded_list' });
     }
 
-    createTodo() {
+    splice(start, todo) {
         if (this.state.focusedList === 'index_list') {
-            const todo = Operation.create();
             let indexList = this.state.indexList;
-            indexList.push(todo);
+            indexList.splice(start, 0, todo);
             this.setState({ indexList: indexList });
+            // TODO: ACTIONを実装した後、対応するACTIONで以下を置き換える。
             document.querySelector('.todo-list.focused').dispatchEvent(EVENT.GOTO_END);
-            console.log(EVENT.GOTO_END.eventPhase)
             window.dispatchEvent(EVENT.SWITCH_MODE(MODE.INSERT));
         }
     }
@@ -88,6 +84,7 @@ export default class App extends React.Component {
                 list={this.state.indexList}
                 didDiscard={todoId => this.didDiscard(todoId)}
                 didPullUp={todoId => this.didPullUp(todoId)}
+                splice={(start, todo) => this.splice(start, todo)}
             />
             <List
                 key='discarded_list'
@@ -96,6 +93,7 @@ export default class App extends React.Component {
                 list={this.state.discardedList}
                 didDiscard={todoId => this.didDiscard(todoId)}
                 didPullUp={todoId => this.didPullUp(todoId)}
+                splice={(start, todo) => this.splice(start, todo)}
             />
         </div>
     }

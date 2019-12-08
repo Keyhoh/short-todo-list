@@ -83,7 +83,7 @@ export function dispatchNormalModeEvent(e) {
             // TODO: goto middle line on screen
             break;
         case 'n':
-            getApp().dispatchEvent(EVENT.CREATE_TODO);
+            getFocusedTodoList().dispatchEvent(EVENT.CREATE_TODO);
             e.preventDefault();
             break;
         case 'o':

@@ -1,8 +1,8 @@
 import React from 'react';
 import Todo from "../Todo/TodoComponent";
 import "./style.scss";
-import MODE from '../../events/MODE';
 import CLASS_NAME from '../CLASS_NAME';
+import Operation from '../../operation/Operation';
 
 /**
  * props:
@@ -20,6 +20,7 @@ export default class List extends React.Component {
     }
 
     componentDidMount() {
+        this.element.addEventListener('createTodo', () => this.create());
         this.element.addEventListener('gotoTop', () => this.goTop());
         this.element.addEventListener('gotoEnd', () => this.goBottom());
         this.element.addEventListener('selectTodo', () => this.select());
@@ -31,6 +32,7 @@ export default class List extends React.Component {
     }
 
     componentWillUnmount() {
+        this.element.removeEventListener('createTodo', () => this.create());
         this.element.removeEventListener('gotoTop', () => this.goTop());
         this.element.removeEventListener('gotoEnd', () => this.goBottom());
         this.element.removeEventListener('selectTodo', () => this.select());
@@ -74,6 +76,11 @@ export default class List extends React.Component {
 
     switchToNormalMode() {
         this.setState({ enteringTodo: null });
+    }
+
+    create() {
+        const todo = Operation.create();
+        this.props.splice(this.props.list.length, todo);
     }
 
     switchToInsertMode() {
