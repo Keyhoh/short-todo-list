@@ -83,7 +83,6 @@ export default class App extends React.Component {
     render() {
         return <div ref={ele => this.element = ele} id='app'>
             <IndexList
-                key='index_list'
                 dataKey='index_list'
                 focused={this.state.focusedList === 'index_list'}
                 list={this.state.indexList}
@@ -92,7 +91,6 @@ export default class App extends React.Component {
                 splice={(start, deleteCount, todo) => this.splice(start, deleteCount, todo)}
             />
             <DiscardedList
-                key='discarded_list'
                 dataKey='discarded_list'
                 focused={this.state.focusedList === 'discarded_list'}
                 list={this.state.discardedList}
