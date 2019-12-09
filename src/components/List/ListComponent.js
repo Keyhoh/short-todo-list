@@ -20,7 +20,6 @@ export default class List extends React.Component {
         super(props);
         this.state = { focusedTodo: 0, enteringTodo: null, selectedTodo: null };
         this.listener = {
-            'deleteTodo': () => this.delete(),
             'gotoTop': () => this.gotoTop(),
             'gotoEnd': () => this.gotoEnd(),
             'selectTodo': () => this.select(),
@@ -77,13 +76,6 @@ export default class List extends React.Component {
 
     switchToNormalMode() {
         this.setState({ enteringTodo: null });
-    }
-
-    delete() {
-        if (!this.props.focused) return;
-        const todo = this.props.list[this.state.focusedTodo];
-        Operation.delete(todo.id);
-        this.props.splice(this.state.focusedTodo, 1, todo);
     }
 
     switchToInsertMode() {
