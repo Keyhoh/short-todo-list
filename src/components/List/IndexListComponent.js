@@ -4,7 +4,7 @@ import Operation from "../../operation/Operation";
 export default class IndexList extends ListComponent {
     constructor(props) {
         super(props);
-        this.listener['createTodo'] = () => this.create();
+        this.addEventListener('createTodo', () => this.create());
     }
 
     create() {

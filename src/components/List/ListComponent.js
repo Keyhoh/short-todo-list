@@ -19,16 +19,19 @@ export default class List extends React.Component {
     constructor(props) {
         super(props);
         this.state = { focusedTodo: 0, enteringTodo: null, selectedTodo: null };
-        this.listener = {
-            'gotoTop': () => this.gotoTop(),
-            'gotoEnd': () => this.gotoEnd(),
-            'selectTodo': () => this.select(),
-            'focusNextTodo': () => this.focusNext(),
-            'focusPrevTodo': () => this.focusPrev(),
-            'switchMode': () => this.switchMode(),
-            'switchToNormalMode': () => this.switchToNormalMode(),
-            'switchToInsertMode': () => this.switchToInsertMode()
-        };
+        this.addEventListener('gotoTop', () => this.gotoTop());
+        this.addEventListener('gotoTop', () => this.gotoTop());
+        this.addEventListener('gotoEnd', () => this.gotoEnd());
+        this.addEventListener('selectTodo', () => this.select());
+        this.addEventListener('focusNextTodo', () => this.focusNext());
+        this.addEventListener('focusPrevTodo', () => this.focusPrev());
+        this.addEventListener('switchMode', () => this.switchMode());
+        this.addEventListener('switchToNormalMode', () => this.switchToNormalMode());
+        this.addEventListener('switchToInsertMode', () => this.switchToInsertMode());
+    }
+
+    addEventListener(eventName, action) {
+        this.listener[eventName] = () => action();
     }
 
     componentDidMount() {

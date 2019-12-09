@@ -4,7 +4,7 @@ import Operation from "../../operation/Operation";
 export default class DiscardedList extends ListComponent {
     constructor(props) {
         super(props);
-        this.listener['deleteTodo'] = () => this.delete();
+        this.addEventListener('deleteTodo', () => this.delete());
     }
 
     delete() {
