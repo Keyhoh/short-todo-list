@@ -81,15 +81,18 @@ export default class List extends React.Component {
     }
 
     create() {
+        if (!this.props.focused) return;
         const todo = Operation.create();
         this.props.splice(this.props.list.length, 0, todo);
     }
 
     delete() {
+        if (!this.props.focused) return;
         const todo = this.props.list[this.state.focusedTodo];
         Operation.delete(todo.id);
         this.props.splice(this.state.focusedTodo, 1, todo);
     }
+
     switchToInsertMode() {
         this.setState({ enteringTodo: this.state.focusedTodo });
     }
