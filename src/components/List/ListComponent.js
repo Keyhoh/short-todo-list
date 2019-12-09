@@ -13,43 +13,43 @@ import Operation from '../../operation/Operation';
 export default class List extends React.Component {
     /** @type {HTMLElement} */
     element = null;
+    /** @type {Object} */
+    listener = {};
 
     constructor(props) {
         super(props);
         this.state = { focusedTodo: 0, enteringTodo: null, selectedTodo: null };
+        this.listener = {
+            'createTodo': () => this.create(),
+            'deleteTodo': () => this.delete(),
+            'gotoTop': () => this.gotoTop(),
+            'gotoEnd': () => this.gotoEnd(),
+            'selectTodo': () => this.select(),
+            'focusNextTodo': () => this.focusNext(),
+            'focusPrevTodo': () => this.focusPrev(),
+            'switchMode': () => this.switchMode(),
+            'switchToNormalMode': () => this.switchToNormalMode(),
+            'switchToInsertMode': () => this.switchToInsertMode()
+        };
     }
 
     componentDidMount() {
-        this.element.addEventListener('createTodo', () => this.create());
-        this.element.addEventListener('deleteTodo', () => this.delete());
-        this.element.addEventListener('gotoTop', () => this.goTop());
-        this.element.addEventListener('gotoEnd', () => this.goBottom());
-        this.element.addEventListener('selectTodo', () => this.select());
-        this.element.addEventListener('focusNextTodo', () => this.focusNext());
-        this.element.addEventListener('focusPrevTodo', () => this.focusPrev());
-        this.element.addEventListener('switchMode', () => this.switchMode());
-        this.element.addEventListener('switchToNormalMode', () => this.switchToNormalMode());
-        this.element.addEventListener('switchToInsertMode', () => this.switchToInsertMode());
+        Object.entries(this.listener).forEach(([event, operation]) => {
+            this.element.addEventListener(event, () => operation());
+        });
     }
 
     componentWillUnmount() {
-        this.element.removeEventListener('createTodo', () => this.create());
-        this.element.removeEventListener('deleteTodo', () => this.delete());
-        this.element.removeEventListener('gotoTop', () => this.goTop());
-        this.element.removeEventListener('gotoEnd', () => this.goBottom());
-        this.element.removeEventListener('selectTodo', () => this.select());
-        this.element.removeEventListener('focusNextTodo', () => this.focusNext());
-        this.element.removeEventListener('focusPrevTodo', () => this.focusPrev());
-        this.element.removeEventListener('switchMode', () => this.switchMode());
-        this.element.removeEventListener('switchToNormalMode', () => this.switchToNormalMode());
-        this.element.removeEventListener('switchToInsertMode', () => this.switchToInsertMode());
+        Object.entries(this.listener).forEach(([event, operation]) => {
+            this.element.removeEventListener(event, () => operation());
+        });
     }
 
-    goTop() {
+    gotoTop() {
         this.setState({ focusedTodo: 0 });
     }
 
-    goBottom() {
+    gotoEnd() {
         const len = this.props.list.length - 1;
         this.setState({ focusedTodo: len });
     }
