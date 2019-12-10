@@ -23,7 +23,7 @@ export default class List extends React.Component {
         this.addEventListener('gotoTop', () => this.gotoTop());
         this.addEventListener('gotoEnd', () => this.gotoEnd());
         this.addEventListener('selectTodo', () => this.select());
-        this.addEventListener('focusNextTodo', () => this.focusNext());
+        this.addEventListener('focusNextTodo', () =>this.focusNext());
         this.addEventListener('focusPrevTodo', () => this.focusPrev());
         this.addEventListener('switchMode', () => this.switchMode());
         this.addEventListener('switchToNormalMode', () => this.switchToNormalMode());
