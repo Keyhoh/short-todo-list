@@ -107,7 +107,7 @@ export function dispatchNormalModeEvent(e) {
 /**
  * インサートモード時のイベントリスナー
  * 
- * @param e {KeyboardEvent}
+ * @param {KeyboardEvent} e 
  */
 export function dispatchInsertModeEvent(e) {
     switch (e.key) {
