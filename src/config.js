@@ -27,6 +27,5 @@ window.addEventListener('keydown', e => {
 });
 
 window.addEventListener('switchMode', e => {
-    App.mode = e.detail;
     dispatchSwitchMode(e.detail);
 });

@@ -1,5 +1,6 @@
 import EVENT from "./EVENT";
 import MODE from "./MODE";
+import * as ACTION from "./ACTION";
 
 /**
  * @returns {Element}
@@ -22,6 +23,7 @@ const getFocusedTodo = () => document.querySelector('.todo-list.focused .todo.fo
 const getEnteringTodo = () => document.querySelector('.entering');
 
 export function dispatchSwitchMode(mode) {
+    App.mode = mode;
     if (mode === MODE.NORMAL) {
         getEnteringTodo().dispatchEvent(EVENT.SWITCH_TO_NORMAL_MODE);
     } else if (mode === MODE.INSERT) {
@@ -38,54 +40,49 @@ export function dispatchNormalModeEvent(e) {
     if (e.ctrlKey || e.altKey || e.metaKey) return;
     switch (e.key) {
         case ' ':
-            getFocusedTodo().dispatchEvent(EVENT.CHECK_TODO);
-            // スクロールを防ぐ
-            e.preventDefault();
+            ACTION.checkTodo(e);
             break;
         case 'd':
-            getFocusedTodo().dispatchEvent(EVENT.DISCARD_TODO);
+            ACTION.discardTodo(e);
             break;
         case 'D':
-            getFocusedTodoList().dispatchEvent(EVENT.DELETE_TODO);
+            ACTION.deleteTodo(e);
             break;
         case 'g':
-            getFocusedTodoList().dispatchEvent(EVENT.GOTO_TOP);
+            ACTION.gotoTop(e);
             break;
         case 'G':
-            getFocusedTodoList().dispatchEvent(EVENT.GOTO_END);
+            ACTION.gotoEnd(e);
             break;
         case 'h':
-            getApp().dispatchEvent(EVENT.FOCUS_PREV_LIST);
+            ACTION.focusPrevList(e);
             break;
         case 'H':
             // TODO: goto first line on screen
             break;
         case 'i':
-            window.dispatchEvent(EVENT.SWITCH_MODE(MODE.INSERT));
-            // iが入力されることを防ぐ
-            e.preventDefault();
+            ACTION.switchMode(e);
             break;
         case 'j':
-            getFocusedTodoList().dispatchEvent(EVENT.FOCUS_NEXT_TODO);
+            ACTION.focusNextTodo(e);
             break;
         case 'k':
-            getFocusedTodoList().dispatchEvent(EVENT.FOCUS_PREV_TODO);
+            ACTION.focusPrevTodo(e);
             break;
         case 'l':
-            getApp().dispatchEvent(EVENT.FOCUS_NEXT_LIST);
+            ACTION.focusNextList(e);
             break;
         case 'L':
             // TODO: goto last line on screen
             break;
         case 'm':
-            getFocusedTodoList().dispatchEvent(EVENT.SELECT_TODO);
+            ACTION.selectTodo(e);
             break;
         case 'M':
             // TODO: goto middle line on screen
             break;
         case 'n':
-            getFocusedTodoList().dispatchEvent(EVENT.CREATE_TODO);
-            e.preventDefault();
+            ACTION.createTodo(e);
             break;
         case 'o':
             // TODO: create todo below
@@ -94,7 +91,7 @@ export function dispatchNormalModeEvent(e) {
             // TODO: create todo above
             break;
         case 'p':
-            getFocusedTodo().dispatchEvent(EVENT.PULL_UP_TODO);
+            ACTION.pullUpTodo(e);
             break;
         case 'y':
             // TODO: copy todo
