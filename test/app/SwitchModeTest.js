@@ -36,7 +36,7 @@ describe('Switch mode', function () {
 
     const getMode = async () => await this.app.webContents.executeJavaScript('global.App.mode');
 
-    [].filter.call(allKey, s => !'i'.includes(s)).forEach(async s => {
+    [].filter.call(allKey, s => !'in'.includes(s)).forEach(async s => {
         it(`mode does not switch from normal mode by ${s}`, async () => {
             await this.app.client.keys(s);
             assert.equal(await getMode(), 'normal');
