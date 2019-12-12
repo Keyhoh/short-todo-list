@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
-import List from "./List/ListComponent";
+import IndexList from "./List/IndexListComponent";
+import DiscardedList from "./List/DiscardedListComponent";
 import "./style.scss";
 import EVENT from "../events/EVENT";
 import MODE from "../events/MODE";
@@ -81,8 +82,7 @@ export default class App extends React.Component {
 
     render() {
         return <div ref={ele => this.element = ele} id='app'>
-            <List
-                key='index_list'
+            <IndexList
                 dataKey='index_list'
                 focused={this.state.focusedList === 'index_list'}
                 list={this.state.indexList}
@@ -90,8 +90,7 @@ export default class App extends React.Component {
                 didPullUp={todoId => this.didPullUp(todoId)}
                 splice={(start, deleteCount, todo) => this.splice(start, deleteCount, todo)}
             />
-            <List
-                key='discarded_list'
+            <DiscardedList
                 dataKey='discarded_list'
                 focused={this.state.focusedList === 'discarded_list'}
                 list={this.state.discardedList}
