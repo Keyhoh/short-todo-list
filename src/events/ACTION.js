@@ -47,7 +47,7 @@ export const deleteTodo = e => getFocusedTodo().dispatchEvent(EVENT.DELETE_TODO)
 /**
  * @param {Event} e 
  */
-export const selectTodo = e => getFocusedTodo().dispatchEvent(EVENT.SELECT_TODO);
+export const selectTodo = e => getFocusedTodoList().dispatchEvent(EVENT.SELECT_TODO);
 
 /**
  * @param {Event} e 
