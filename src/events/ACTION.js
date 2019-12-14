@@ -25,7 +25,7 @@ const getEnteringTodo = () => document.querySelector('.entering');
  * @param {Event} e 
  */
 export const createTodo = e => {
-    getFocusedTodo().dispatchEvent(EVENT.CREATE_TODO);
+    getFocusedTodoList().dispatchEvent(EVENT.CREATE_TODO);
     e.preventDefault();
 };
 /**
